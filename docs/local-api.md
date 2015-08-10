@@ -17,16 +17,16 @@ The following text commands are available for use with the local API.
 * `list` - Prompts for a UNIX timestamp and then return a list of all personal message IDs received after that timestamp. The personal message details can then be looked up using the `get` command.
 * `me` - Returns the DM address of the currently running DecentMessaging node.
 
- ## Protocol
-  
- TODO: Describe the back and forth between the client and the local API server.
- 
- TODO: Describe use of HTTP style error code responses.
- 
- ### Request/Informational codes
- 
- TODO: Provide a reference for all informational codes that may be encountered.
- 
- ### Error codes
- 
- TODO: Provide a reference for all error code that may be encountered.
+## Protocol
+
+TODO: Describe the back and forth between the client and the local API server.
+
+TODO: Describe use of HTTP style error code responses.
+
+### Request/Informational codes
+
+TODO: Provide a reference for all informational codes that may be encountered.
+
+### Error codes
+
+TODO: Provide a reference for all error code that may be encountered.
