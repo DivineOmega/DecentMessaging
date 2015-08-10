@@ -2,11 +2,11 @@
 
 ## Node or Peer
 
-A DecentMessaging `node` or `peer` is any running instance of the DecentMessaging Java application. Multiple nodes interconnect to form the encrypted DecentMessaging peer-to-peer network.
+A Decent Messaging `node` or `peer` is any running instance of the Decent Messaging Java application. Multiple nodes interconnect to form the encrypted Decent Messaging peer-to-peer network.
 
-# DecentMessaging (DM) Addresses
+# Decent Messaging (DM) Addresses
 
-A `DM Address` is the equivilent of an email address in the DecentMessaging system. It a large string of letters, numbers and symbol. The format of a DM address is:
+A `DM Address` is the equivalent of an email address in the DecentMessaging system. It a large string of letters, numbers and symbol. The format of a DM address is:
 
 1. The recipient's public key modulus (base64 encoded)
 2. A comma character (`,`)
