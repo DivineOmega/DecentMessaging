@@ -1,0 +1,41 @@
+* Caretaker thread - DONE
+** Regularly ensure messages are not using more than 10% of free disk space - DONE
+
+* Digital Signatures (possibly using SHA256withRSA algorihm) - DONE
+** New field(s): - DONE
+*** message.signature (Binary) - DONE
+** New functionality - DONE
+*** When creating a new message sign it, and store the signature in message table - DONE
+*** Before decrypting, verify the signature, aborting the creation of the personal record if verification fails - DONE
+*** Add signature support to incoming and outgoing messaging handlers - DONE
+
+* Password protected encryption of private key to prevent sending of messages without the password
+** New field(s):
+*** privatekey.encrypted_modulus (Binary)
+*** privatekey.encrypted_exponent (Binary)
+** New functionality
+*** Encryption of private key via system tray option ('Change sending password') or local server connection
+*** Store new encrypted modulus and exponent in privatekey table and remove plaintext modulus and exponent
+*** Prompt for password when attempting to send message via local server connection
+*** Decryption of private key in memory when required to encrypt a message
+
+* Start-up checks - DONE
+** Check support for all required algorithms - DONE
+** Check support for required key length (256) - DONE
+
+* Nodes - DONE
+** New field(s): - DONE
+*** node.port (Int) - DONE
+** New functionality - DONE
+*** Remove node from database via system tray - DONE
+*** Bootstrapping thread to connect to nodes in node table - DONE
+*** Do not bootstrap to an already connected peer - DONE
+*** Connection status message available via system tray menu - DONE
+** Changes to existing functionality - DONE
+*** Change connect option in system tray to add node, rather than immediately connect - DONE
+*** Change add node functionality in system tray to include port number - DONE
+*** Remove functionality to connect via local API - DONE
+
+* Local API - DONE
+** Add command to list personal IDs for all personal messages after a certain time - DONE
+** Add command to get personal content based on a personal ID - DONE
