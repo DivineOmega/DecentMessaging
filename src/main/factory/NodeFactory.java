@@ -20,15 +20,37 @@ public abstract class NodeFactory
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "insert into node set host = ?, port = ?, last_seen = NOW()";
+			
+			String sql = "select id from node where host = ? and port = ? limit 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, host);
 			stmt.setInt(2, port);
-			stmt.executeUpdate();
-			ResultSet generatedKeys = stmt.getGeneratedKeys();
-			if (generatedKeys.next()) 
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next())
 			{
-			    id = generatedKeys.getInt(1);
+				id = rs.getInt("ID");
+			}
+			stmt.close();
+			
+			if (id==0)
+			{
+				sql = "insert into node set host = ?, port = ?, last_seen = NOW()";
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, host);
+				stmt.setInt(2, port);
+				stmt.executeUpdate();
+				ResultSet generatedKeys = stmt.getGeneratedKeys();
+				if (generatedKeys.next()) 
+				{
+				    id = generatedKeys.getInt(1);
+				}
+			}
+			else
+			{
+				sql = "update node set last_seen = NOW() where id = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, id);
+				stmt.executeUpdate();
 			}
 		} 
 		catch (SQLException e) 
