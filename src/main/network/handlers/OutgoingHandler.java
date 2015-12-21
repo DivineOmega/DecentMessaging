@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 import main.record.MessageRecord;
+import main.record.NodeRecord;
 
 public abstract class OutgoingHandler 
 {
@@ -40,5 +41,12 @@ public abstract class OutgoingHandler
 			message.alterTimesBroadcast(1);
 		}
 		return false;
+	}
+
+	public static void sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws IOException 
+	{
+		out.writeChar('n');
+		out.writeUTF(outgoingObject.host);
+		out.writeInt(outgoingObject.port);
 	}
 }

@@ -8,6 +8,7 @@ import java.net.SocketTimeoutException;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import main.factory.MessageFactory;
+import main.factory.NodeFactory;
 
 public abstract class IncomingHandler 
 {
@@ -70,5 +71,13 @@ public abstract class IncomingHandler
 		}
 		out.writeBoolean(false); // Failed
 		return false;
+	}
+
+	public static void receiveNode(DataInputStream in, DataOutputStream out) throws IOException 
+	{
+		String host = in.readUTF();
+		int port = in.readInt();
+		
+		NodeFactory.createNew(host, port);
 	}
 }

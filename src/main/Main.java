@@ -35,6 +35,7 @@ import main.factory.PublicKeyFactory;
 import main.network.Bootstrapper;
 import main.network.LocalServer;
 import main.network.MessageRelayer;
+import main.network.NodeRelayer;
 import main.network.PeerServer;
 import main.record.NodeRecord;
 
@@ -365,6 +366,10 @@ public class Main
 		System.out.println("Starting message relayer...");
 		MessageRelayer messageRelayer1 = new MessageRelayer();
 		messageRelayer1.start();
+		
+		System.out.println("Starting node relayer...");
+		NodeRelayer nodeRelayer1 = new NodeRelayer();
+		nodeRelayer1.start();
 		
 		System.out.println("Starting bootstrapper...");
 		Bootstrapper bootstrapper1 = new Bootstrapper();

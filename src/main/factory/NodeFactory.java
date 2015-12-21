@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
+
 import main.DatabaseConnection;
 import main.record.NodeRecord;
 
@@ -115,6 +117,18 @@ public abstract class NodeFactory
 		}
 		
 		return nodes;
+	}
+	
+	public static NodeRecord getRandomNode()
+	{
+		ArrayList<NodeRecord> nodes = getRandomNodes();
+		
+		if (nodes != null && nodes.size()>0) 
+		{
+			return nodes.get(0);
+		}
+		
+		return null;
 	}
 	
 	public static NodeRecord get(int id)
