@@ -165,6 +165,37 @@ public class LocalServer extends Thread
 					socket.close();
 					continue;
 				}
+				else if(cmd.equals("delete"))
+				{
+					out.println("*141 Personal message ID:");
+					String personalIDString = in.readLine();
+					int personalID = 0;
+					try 
+					{
+						personalID = Integer.valueOf(personalIDString);
+					}
+					catch(NumberFormatException e)
+					{
+						out.println("*241 Error: non-numeric personal ID.");
+						socket.close();
+						continue;
+					}
+					PersonalRecord personalRecord = PersonalFactory.get(personalID);
+					if (personalRecord==null)
+					{
+						out.println("*242 Error: personal message with that ID does not exist.");
+						socket.close();
+						continue;
+					}
+					boolean deleted = personalRecord.delete();
+					if (!deleted) {
+						out.println("*243 Error: personal message may not have been deleted successfully.");
+					} else {
+						out.println("*340 Success: personal message deleted.");
+					}
+					socket.close();
+					continue;
+				}
 				else if(cmd.equals("list"))
 				{
 					out.println("*121 Timestamp:");

@@ -7,7 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+
+import main.DatabaseConnection;
 
 public class PersonalRecord 
 {
@@ -48,6 +54,30 @@ public class PersonalRecord
 	public String getContentAsString() throws UnsupportedEncodingException, FileNotFoundException, IOException
 	{
 		return new String(getContent(), "UTF-8");
+	}
+	
+	public boolean delete()
+	{
+		try
+		{
+			Connection conn = DatabaseConnection.getConn();
+			String sql = "delete from personal where id = ? limit 1";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, this.id);
+			int rowsDeleted = stmt.executeUpdate();
+			boolean fileDeleted = content_file.delete();
+			
+			if (fileDeleted == false || rowsDeleted != 1) {
+				return false;
+			} else {
+				return true;
+			}
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 }
