@@ -62,9 +62,15 @@ public class LocalServer extends Thread
 					// Read recipient modulus from 'in'
 					out.println("*101 Recipient address:");
 					String rcptAddress = in.readLine();
-					String[] rcptAddressParts = rcptAddress.split(",");					
-					BigInteger rcptModulus = Base64.decodeInteger(rcptAddressParts[0].getBytes("UTF-8"));
-					BigInteger rcptExponent = Base64.decodeInteger(rcptAddressParts[1].getBytes("UTF-8"));
+							
+					BigInteger rcptModulus = Main.getModulusFromDmAddress(rcptAddress);
+					BigInteger rcptExponent = Main.getExponentFromDmAddress(rcptAddress);
+					
+					if (rcptModulus == null || rcptExponent == null) {
+						out.println("*205 Error: recipient DM address version string is not valid/supported.");
+						socket.close();
+						continue;
+					}
 					
 					// Calculate recipient public key
 					RSAPublicKeySpec keySpec = new RSAPublicKeySpec(rcptModulus, rcptExponent);

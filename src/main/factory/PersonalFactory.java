@@ -3,6 +3,7 @@ package main.factory;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import main.DatabaseConnection;
+import main.Main;
 import main.record.PersonalRecord;
 
 import org.apache.commons.codec.binary.Base64;
@@ -27,10 +29,9 @@ public abstract class PersonalFactory
 		String[] decryptedStrings = decryptedString.split("\n", 3);
 		if (decryptedStrings.length!=3) return null;
 		
-		String[] senderAddressParts = decryptedStrings[0].split(",", 2);
-		if (senderAddressParts.length!=2) return null;
-		String senderModulus = Base64.decodeInteger(senderAddressParts[0].getBytes("UTF-8")).toString();
-		String senderExponent = Base64.decodeInteger(senderAddressParts[1].getBytes("UTF-8")).toString();
+		String senderAddress = decryptedStrings[0];
+		String senderModulus = Main.getModulusFromDmAddress(senderAddress).toString();
+		String senderExponent = Main.getExponentFromDmAddress(senderAddress).toString();
 		
 		int id = 0;
 		try

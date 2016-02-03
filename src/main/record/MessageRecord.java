@@ -28,6 +28,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import main.DatabaseConnection;
+import main.Main;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.crypto.DataLengthException;
@@ -161,12 +162,11 @@ public class MessageRecord
 		String[] decryptedStrings = decryptedString.split("\n", 3);
 		if (decryptedStrings.length!=3) return false;
 		
-		String[] senderAddressParts = decryptedStrings[0].split(",", 2);
-		if (senderAddressParts.length!=2) return false;
-		String senderModulus = Base64.decodeInteger(senderAddressParts[0].getBytes("UTF-8")).toString();
-		String senderExponent = Base64.decodeInteger(senderAddressParts[1].getBytes("UTF-8")).toString();
+		String senderAddress = decryptedStrings[0];
+		BigInteger senderModulus = Main.getModulusFromDmAddress(senderAddress);
+		BigInteger senderExponent = Main.getExponentFromDmAddress(senderAddress);
 		
-		RSAPublicKeySpec keySpec = new RSAPublicKeySpec(new BigInteger(senderModulus), new BigInteger(senderExponent));
+		RSAPublicKeySpec keySpec = new RSAPublicKeySpec(senderModulus, senderExponent);
 		KeyFactory fact = KeyFactory.getInstance("RSA");
 		PublicKey senderPublicKey = fact.generatePublic(keySpec);
 		

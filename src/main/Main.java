@@ -409,9 +409,44 @@ public class Main
 	
 	public static String createDmAddress(BigInteger modulus, BigInteger exponent) throws UnsupportedEncodingException
 	{
+		String dmAddressVersion = "A";
 		String base64Modulus = new String(Base64.encodeInteger(modulus), "UTF-8");
 		String base64Exponent = new String(Base64.encodeInteger(exponent), "UTF-8");
-		return base64Modulus+","+base64Exponent;
+		return dmAddressVersion+","+base64Modulus+","+base64Exponent;
+	}
+	
+	public static BigInteger getModulusFromDmAddress(String dmAddress) throws UnsupportedEncodingException
+	{
+		String[] dmAddressParts = dmAddress.split(",");
+		
+		if (dmAddressParts.length<1) {
+			return null;
+		}
+		
+		String dmAddressVersion = dmAddressParts[0];
+		
+		if (dmAddressVersion.equals("A") && dmAddressParts.length==3) {
+			return Base64.decodeInteger(dmAddressParts[1].getBytes("UTF-8"));
+		}
+		
+		return null;
+	}
+	
+	public static BigInteger getExponentFromDmAddress(String dmAddress) throws UnsupportedEncodingException
+	{
+String[] dmAddressParts = dmAddress.split(",");
+		
+		if (dmAddressParts.length<1) {
+			return null;
+		}
+		
+		String dmAddressVersion = dmAddressParts[0];
+		
+		if (dmAddressVersion.equals("A") && dmAddressParts.length==3) {
+			return Base64.decodeInteger(dmAddressParts[2].getBytes("UTF-8"));
+		}
+		
+		return null;
 	}
 	
 	public static ArrayList<InetAddress> getMyIPs() throws SocketException
