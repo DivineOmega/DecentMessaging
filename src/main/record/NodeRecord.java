@@ -23,6 +23,23 @@ public class NodeRecord
 		this.last_seen = last_seen;
 	}
 	
+	public void updateLastSeen()
+	{
+		try
+		{
+			Connection conn = DatabaseConnection.getConn();
+			String sql = "update node set last_seen = NOW() where id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, this.id);
+			stmt.executeUpdate();
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static boolean deleteByHostAndPort(String host, int port)
 	{
 		try

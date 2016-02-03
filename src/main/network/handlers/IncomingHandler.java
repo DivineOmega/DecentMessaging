@@ -9,6 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import main.factory.MessageFactory;
 import main.factory.NodeFactory;
+import main.record.NodeRecord;
 
 public abstract class IncomingHandler 
 {
@@ -78,8 +79,12 @@ public abstract class IncomingHandler
 		String host = in.readUTF();
 		int port = in.readInt();
 		
-		NodeFactory.createNew(host, port);
+		NodeRecord node = NodeFactory.createNew(host, port);
 		
-		return true;
+		if (node == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

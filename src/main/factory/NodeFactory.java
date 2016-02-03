@@ -47,13 +47,6 @@ public abstract class NodeFactory
 				    id = generatedKeys.getInt(1);
 				}
 			}
-			else
-			{
-				sql = "update node set last_seen = NOW() where id = ?";
-				stmt = conn.prepareStatement(sql);
-				stmt.setInt(1, id);
-				stmt.executeUpdate();
-			}
 		} 
 		catch (SQLException e) 
 		{

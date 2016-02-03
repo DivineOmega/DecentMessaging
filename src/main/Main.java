@@ -115,8 +115,10 @@ public class Main
 		        	}
 		        	try
 		        	{
-			        	if (NodeFactory.createNew(host, Integer.valueOf(port))!=null)
+		        		NodeRecord node = NodeFactory.createNew(host, Integer.valueOf(port));
+			        	if (node!=null)
 		        		{
+			        		node.updateLastSeen();
 		        			JOptionPane.showMessageDialog(null, "Node added: "+host+":"+port, "Decent Messaging", JOptionPane.INFORMATION_MESSAGE);
 		        		}
 		        		else
@@ -166,11 +168,16 @@ public class Main
 				        		while (x<=254)
 				        		{
 				        			host = ipParts[0]+"."+ipParts[1]+"."+ipParts[2]+"."+Integer.toString(x);
-				        			if (NodeFactory.createNew(host, Integer.valueOf(port))==null)
+				        			NodeRecord node = NodeFactory.createNew(host, Integer.valueOf(port)); 
+				        			if (node==null)
 					        		{
 					        			JOptionPane.showMessageDialog(null, "Error adding node: "+host+":"+port+". No further LAN nodes will be added.", "Decent Messaging", JOptionPane.ERROR_MESSAGE);
 					        			return;
 					        		}
+				        			else
+				        			{
+				        				node.updateLastSeen();
+				        			}
 				        			x++;
 				        		}
 				        		JOptionPane.showMessageDialog(null, "All LAN nodes in the range "+ipParts[0]+"."+ipParts[1]+"."+ipParts[2]+".1-254 have been added.", "Decent Messaging", JOptionPane.INFORMATION_MESSAGE);
