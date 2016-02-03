@@ -24,9 +24,9 @@ The following text commands are available for use with the local API.
 
 The protocol uses numeric codes prefixed with an asterisk to indicate status. These are presented in the following format
 
-`*1XX` - Requests for required information, such as the command to run or command parameters.
-`*2XX` - Errors. See the 'Error codes' table below for more details.
-`*3XX` - Informational messages, usually indicating success or providing results.
+* `*1XX` - Requests for required information, such as the command to run or command parameters.
+* `*2XX` - Errors. See the 'Error codes' table below for more details.
+* `*3XX` - Informational messages, usually indicating success or providing results.
 
 ### Request/Informational codes
 
