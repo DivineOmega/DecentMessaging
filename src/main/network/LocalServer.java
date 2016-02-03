@@ -67,7 +67,7 @@ public class LocalServer extends Thread
 					BigInteger rcptExponent = Main.getExponentFromDmAddress(rcptAddress);
 					
 					if (rcptModulus == null || rcptExponent == null) {
-						out.println("*205 Error: recipient DM address version string is not valid/supported.");
+						out.println("*205 Error: recipient DM address is not valid/supported.");
 						socket.close();
 						continue;
 					}

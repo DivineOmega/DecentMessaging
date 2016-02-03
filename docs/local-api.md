@@ -41,6 +41,7 @@ The protocol uses numeric codes prefixed with an asterisk to indicate status. Th
 | 202  | Client failed to provide required data to construct a new message.  |
 | 203  | An internal error in DecentMessaging prevented a new message being created. |
 | 204  | An internal error in DecentMessaging prevented verification of new message creation. |
+| 205  | The DM address provided by the client is invalid. |
 | 211  | Client provided an non-numeric personal message ID while attempting to retrieve a personal message. |
 | 212  | Client requested a personal message that does not exist. |
 | 221  | Client provided a non-numeric timestamp value when attempting to retrieve a list of personal message IDs. |
