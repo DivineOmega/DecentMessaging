@@ -21,7 +21,11 @@ The following text commands are available for use with the local API.
 
 *TODO: Describe the back and forth between the client and the local API server.*
 
-*TODO: Describe use of HTTP style error code responses.*
+The protocol uses numeric codes prefixed with an asterisk to indicate status. These are presented in the following format
+
+`*1XX` - Requests for required information, such as the command to run or command parameters.
+`*2XX` - Errors. See the 'Error codes' table below for more details.
+`*3XX` - Informational messages, usually indicating success or providing results.
 
 ### Request/Informational codes
 
@@ -39,3 +43,6 @@ The following text commands are available for use with the local API.
 | 211  | Client provided an non-numeric personal message ID while attempting to retrieve a personal message. |
 | 212  | Client requested a personal message that does not exist. |
 | 221  | Client provided a non-numeric timestamp value when attempting to retrieve a list of personal message IDs. |
+| 241  | Client provided an non-numeric personal message ID while attempting to delete a personal message. |
+| 242  | Client requested deletion of a personal message that does not exist. |
+| 244  | An error occurred deleting the personal message. The database record for this personal message and/or its content within the personal message file may not have been deleted. |
