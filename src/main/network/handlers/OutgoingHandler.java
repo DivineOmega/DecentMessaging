@@ -43,10 +43,12 @@ public abstract class OutgoingHandler
 		return false;
 	}
 
-	public static void sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws IOException 
+	public static boolean sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws IOException 
 	{
 		out.writeChar('n');
 		out.writeUTF(outgoingObject.host);
 		out.writeInt(outgoingObject.port);
+		
+		return true;
 	}
 }

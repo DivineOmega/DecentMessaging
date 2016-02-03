@@ -93,7 +93,10 @@ public class PeerConnection extends Thread
 			}
 			else if (command=='n') // Incoming node 
 			{
-				IncomingHandler.receiveNode(in, out);
+				if (IncomingHandler.receiveNode(in, out))
+				{
+					NodeRecord.updateLastSeenBySocket(socket);
+				}
 			}
 		} 
 		catch (SocketTimeoutException e)
@@ -124,7 +127,10 @@ public class PeerConnection extends Thread
 			}
 			else if (OutgoingObject.getClass() == NodeRecord.class)
 			{
-				OutgoingHandler.sendNode(in, out, (NodeRecord) OutgoingObject);
+				if (OutgoingHandler.sendNode(in, out, (NodeRecord) OutgoingObject))
+				{
+					NodeRecord.updateLastSeenBySocket(socket);
+				}
 			}
 		} 
 		catch (SocketTimeoutException e)

@@ -73,11 +73,13 @@ public abstract class IncomingHandler
 		return false;
 	}
 
-	public static void receiveNode(DataInputStream in, DataOutputStream out) throws IOException 
+	public static boolean receiveNode(DataInputStream in, DataOutputStream out) throws IOException 
 	{
 		String host = in.readUTF();
 		int port = in.readInt();
 		
 		NodeFactory.createNew(host, port);
+		
+		return true;
 	}
 }
