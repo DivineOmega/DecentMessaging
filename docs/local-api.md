@@ -13,7 +13,8 @@ It is worth familiarising yourself with [Decent Messaging terminology](terminolo
 The following text commands are available for use with the local API.
 
 * `send` - Prompts for message details and then creates a new DecentMessaging message that will be automatically distributed through the peer to peer network
-* `get` - Prompts for a personal message ID and returns the content of that personal message. 
+* `get` - Prompts for a personal message ID and returns the content of that personal message.
+* `delete` - Prompts for a personal message ID and deletes the personal message record and file.  
 * `list` - Prompts for a UNIX timestamp and then returns a list of all personal message IDs received after that timestamp. The personal message details can then be looked up using the `get` command.
 * `me` - Returns the DM address of the currently running DecentMessaging node.
 
