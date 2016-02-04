@@ -1,11 +1,20 @@
 package main.network;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.bitlet.weupnp.GatewayDevice;
+import org.bitlet.weupnp.GatewayDiscover;
+import org.bitlet.weupnp.PortMappingEntry;
+import org.xml.sax.SAXException;
+
 import main.Main;
+import main.factory.NodeFactory;
 
 
 public class PeerServer extends Thread 
@@ -31,6 +40,16 @@ public class PeerServer extends Thread
 			e.printStackTrace();
 			System.out.println("Error starting peer server.");
 			System.exit(0);
+		}
+		
+		try 
+		{
+			portMap();
+		}
+		catch (SAXException | IOException | ParserConfigurationException e) 
+		{
+			e.printStackTrace();
+			System.out.println("Error mapping port on uPnP device to peer server.");
 		}
 		
 		Socket socket;
@@ -63,5 +82,42 @@ public class PeerServer extends Thread
 				System.out.println("Error with peer server connection.");
 			}
 		}
+	}
+	
+	public void portMap() throws IOException, SAXException, ParserConfigurationException
+	{
+		GatewayDiscover discover = new GatewayDiscover();
+		discover.discover();
+		
+		GatewayDevice d = discover.getValidGateway();
+		
+		if (d == null) {
+			return;
+		}
+		
+		
+		
+		InetAddress localAddress = d.getLocalAddress();
+		String externalIPAddress = d.getExternalIPAddress();
+				
+		PortMappingEntry portMapping = new PortMappingEntry();
+		
+		boolean portMapped = false;
+		
+		// Check if port is already mapped
+		if (d.getSpecificPortMappingEntry(this.port,"TCP",portMapping)) {
+			portMapped = true;	
+		}
+		// Else, attempt to map port
+		else if (d.addPortMapping(this.port, this.port, localAddress.getHostAddress(),"TCP","Decent Messaging")) {
+			portMapped = true;
+		}
+		
+		// If we managed to map the port, we should add our external IP address and port to the nodes list.
+		// This will allow it to be relayed to other nodes later.
+		if (portMapped) {
+			NodeFactory.createNew(externalIPAddress, this.port);
+		}
+
 	}
 }
