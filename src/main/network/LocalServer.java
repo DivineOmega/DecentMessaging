@@ -16,8 +16,10 @@ import java.util.Iterator;
 
 import main.Main;
 import main.factory.MessageFactory;
+import main.factory.NodeFactory;
 import main.factory.PersonalFactory;
 import main.record.MessageRecord;
+import main.record.NodeRecord;
 import main.record.PersonalRecord;
 
 import org.apache.commons.codec.binary.Base64;
@@ -233,6 +235,29 @@ public class LocalServer extends Thread
 				{
 					out.println("*330 DM address of this node:");
 					out.println(Main.dmAddress);
+					socket.close();
+					continue;
+				}
+				else if(cmd.equals("node"))
+				{
+					out.println("*151 New node IP/hostname:");
+					String host = in.readLine();
+					out.println("*152 New node port number:");
+					String portString = in.readLine();
+					int port = 0;
+					try
+					{
+						port = Integer.valueOf(portString);
+					}
+					catch(NumberFormatException e)
+					{
+						out.println("*251 Error: non-numeric port number.");
+						socket.close();
+						continue;
+					}
+					NodeRecord node = NodeFactory.createNew(host, port);
+					node.updateLastSeen();
+					out.println("*350 Success: new node added.");
 					socket.close();
 					continue;
 				}
