@@ -74,11 +74,7 @@ public class PeerConnection extends Thread
 			e.printStackTrace();
 		}
 		
-		if (!Main.peerServer1.connections.remove(this))
-		{
-			System.out.println("Cleanup issue: Could not remove PeerConnection object from PeerServer.connections list.");
-			System.exit(0);
-		}
+		Main.peerServer1.connections.remove(this);
 	}
 	
 	public void handleIncoming()
