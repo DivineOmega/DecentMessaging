@@ -22,6 +22,7 @@ public class PeerServer extends Thread
 	int port;
 	public ArrayList<PeerConnection> connections = new ArrayList<PeerConnection>();
 	int incomingLimit = 40;
+	String externalIPAddress;
 	
 	public PeerServer(int port)
 	{
@@ -71,6 +72,7 @@ public class PeerServer extends Thread
 			try 
 			{
 				socket = serverSocket.accept();
+				
 				PeerConnection incomingConnection = new PeerConnection(socket);
 				connections.add(incomingConnection);
 				incomingConnection.start();
@@ -98,7 +100,7 @@ public class PeerServer extends Thread
 		
 		
 		InetAddress localAddress = d.getLocalAddress();
-		String externalIPAddress = d.getExternalIPAddress();
+		externalIPAddress = d.getExternalIPAddress();
 		
 		boolean portMapped = false;
 		
