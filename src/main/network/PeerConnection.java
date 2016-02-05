@@ -33,10 +33,6 @@ public class PeerConnection extends Thread
 	
 	public void run()
 	{
-		if (socket.getInetAddress().getHostAddress().equals(Main.peerServer1.externalIPAddress)) {
-			threadDone = true;
-		}		
-		
 		if(socket.getLocalAddress().equals(socket.getInetAddress()))
 		{
 			threadDone = true;

@@ -62,6 +62,11 @@ public class Bootstrapper extends Thread
 			
 			if (node==null) continue;
 			
+			// Prevent bootstrapping a connection to our external IP address
+			if (node.host.equals(Main.peerServer1.externalIPAddress)) {
+				continue;
+			}
+			
 			connections.clear();
 			connections.addAll(Main.peerServer1.connections);
 			
