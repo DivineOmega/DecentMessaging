@@ -59,6 +59,10 @@ public class LocalServer extends Thread
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out.println("*100 Command:");
 				String cmd = in.readLine();
+				if (cmd == null) {
+					socket.close();
+					continue;
+				}
 				if (cmd.equals("send")) // Send a message
 				{
 					// Read recipient modulus from 'in'
