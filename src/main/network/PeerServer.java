@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -15,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import main.Main;
 import main.factory.NodeFactory;
+import main.record.NodeRecord;
 
 
 public class PeerServer extends Thread 
@@ -53,6 +55,8 @@ public class PeerServer extends Thread
 			System.out.println("Error mapping port on uPnP device to peer server.");
 		}
 		
+		ArrayList<PeerConnection> connections = new ArrayList<PeerConnection>();
+		
 		Socket socket;
 		while (true)
 		{
@@ -72,6 +76,14 @@ public class PeerServer extends Thread
 			try 
 			{
 				socket = serverSocket.accept();
+				
+				connections.clear();
+				connections.addAll(Main.peerServer1.connections);
+				
+				if (isSocketAlreadyConnected(socket, connections)) {
+					socket.close();
+					continue;
+				}
 				
 				PeerConnection incomingConnection = new PeerConnection(socket);
 				connections.add(incomingConnection);
@@ -118,5 +130,21 @@ public class PeerServer extends Thread
 			NodeFactory.createNew(externalIPAddress, this.port);
 		}
 
+	}
+	
+	private boolean isSocketAlreadyConnected(Socket socket, ArrayList<PeerConnection> connections)
+	{
+		Iterator<PeerConnection> connectionIterator = connections.iterator();
+		InetAddress connectionInetAddress = null;
+		
+		while(connectionIterator.hasNext())
+		{
+			connectionInetAddress = connectionIterator.next().socket.getInetAddress();
+			if (connectionInetAddress.getHostAddress().equals(socket.getInetAddress().getHostAddress()) || connectionInetAddress.getHostName().equals(socket.getInetAddress().getHostName()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
