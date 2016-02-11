@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -15,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import main.Main;
 import main.factory.NodeFactory;
+import main.record.NodeRecord;
 
 
 public class PeerServer extends Thread 
@@ -72,7 +74,6 @@ public class PeerServer extends Thread
 			try 
 			{
 				socket = serverSocket.accept();
-				
 				PeerConnection incomingConnection = new PeerConnection(socket);
 				connections.add(incomingConnection);
 				incomingConnection.start();
@@ -119,4 +120,5 @@ public class PeerServer extends Thread
 		}
 
 	}
+	
 }
