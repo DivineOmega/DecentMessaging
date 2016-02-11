@@ -31,7 +31,7 @@ public class Caretaker extends Thread
 			
 			while (usedSpace > (freeSpace*0.1))
 			{
-				MessageFactory.getMessageToDelete().delete();
+				MessageFactory.getMessageToDelete().deleteContentFile();
 				usedSpace = MessageRecord.getUsedSpace();
 			}
 		}

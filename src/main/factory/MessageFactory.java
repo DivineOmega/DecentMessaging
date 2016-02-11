@@ -66,7 +66,7 @@ public abstract class MessageFactory
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "select id from message order by times_broadcast desc, content_size desc, originally_received limit 1";
+			String sql = "select id from message where content_size != 0 order by times_broadcast desc, content_size desc, originally_received limit 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
@@ -90,7 +90,7 @@ public abstract class MessageFactory
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "select id from message where decryption_attempted=false order by originally_received limit 1";
+			String sql = "select id from message where content_size != 0 and decryption_attempted=false order by originally_received limit 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
@@ -114,7 +114,7 @@ public abstract class MessageFactory
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "select id from message order by times_broadcast, content_size, originally_received limit 1";
+			String sql = "select id from message where content_size != 0 order by times_broadcast, content_size, originally_received limit 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
@@ -167,7 +167,7 @@ public abstract class MessageFactory
 			e.printStackTrace();
 		}
 		
-		if (originally_received==null || content_sha256==null || content_size==0 || content_key==null || iv==null || signature==null)
+		if (originally_received==null || content_sha256==null || content_size<0 || content_key==null || iv==null || signature==null)
 		{
 			return null;
 		}

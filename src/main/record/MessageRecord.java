@@ -69,6 +69,10 @@ public class MessageRecord
 	
 	public byte[] getContent() throws FileNotFoundException, IOException
 	{
+		if (!content_file.exists()) {
+			return null;
+		}
+		
 		InputStream is = new FileInputStream(content_file);
 	    byte[] bytes = new byte[(int) content_file.length()];
 	    int offset = 0;
@@ -203,12 +207,12 @@ public class MessageRecord
 		return usedSpace;
 	}
 
-	public boolean delete() 
+	public boolean deleteContentFile()
 	{
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "delete from messagewhere id = ?";
+			String sql = "update message set content_size = 0 where id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
