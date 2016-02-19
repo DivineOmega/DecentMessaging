@@ -95,11 +95,6 @@ public class PeerConnection extends Thread
 					NodeRecord.updateLastSeenBySocket(socket);
 				}
 			}
-			else // Unexpected incoming data
-			{
-				threadDone = true;
-				return;
-			}
 			this.markAsStillActive();
 		} 
 		catch (SocketTimeoutException e)
