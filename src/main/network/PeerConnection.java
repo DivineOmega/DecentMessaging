@@ -20,6 +20,7 @@ public class PeerConnection extends Thread
 	DataOutputStream out;
 	boolean threadDone = false;
 	ArrayList<Object> OutgoingObjects = new ArrayList<Object>();
+	private long stillActiveTimestamp = System.currentTimeMillis();
 	
 	public PeerConnection(Socket socket)
 	{
@@ -59,6 +60,8 @@ public class PeerConnection extends Thread
 			if (threadDone) break; 
 			handleOutgoing(); 
 			if (threadDone) break;
+			checkIfStillActive(); 
+			if (threadDone) break;
 		}
 		
 		try 
@@ -92,6 +95,7 @@ public class PeerConnection extends Thread
 					NodeRecord.updateLastSeenBySocket(socket);
 				}
 			}
+			this.markAsStillActive();
 		} 
 		catch (SocketTimeoutException e)
 		{
@@ -126,6 +130,7 @@ public class PeerConnection extends Thread
 					NodeRecord.updateLastSeenBySocket(socket);
 				}
 			}
+			this.markAsStillActive();
 		} 
 		catch (SocketTimeoutException e)
 		{
@@ -135,6 +140,17 @@ public class PeerConnection extends Thread
 		{
 			threadDone = true;
 			e.printStackTrace();
+		}
+	}
+
+	private void markAsStillActive() {
+		this.stillActiveTimestamp = System.currentTimeMillis();
+	}
+	
+	private void checkIfStillActive() {
+		if(System.currentTimeMillis() - (10*1000) > this.stillActiveTimestamp) {
+			System.out.println("Killing connection due to being inactive. "+this.socket.getInetAddress().getHostAddress());
+			threadDone = true;
 		}
 	}
 	
