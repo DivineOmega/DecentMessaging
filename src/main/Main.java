@@ -389,13 +389,59 @@ public class Main
 		System.out.println("Starting caretaker...");
 		Caretaker caretaker1 = new Caretaker();
 		caretaker1.start();
-		
+			
 		System.out.println("Enabling system tray menu items...");
 		if (dmAddressMenuItem!=null) dmAddressMenuItem.setEnabled(true);
 		if (removeNodeMenuItem!=null) removeNodeMenuItem.setEnabled(true);
 		if (removeNodeMenuItem!=null) nodePopup.setEnabled(true);
 		
 		System.out.println("Start up complete.");
+		
+		System.out.println("Thread monitoring starting...");
+		
+		ArrayList<Thread> threadsToMonitor = new ArrayList<Thread>();
+		threadsToMonitor.add(localServer1);
+		threadsToMonitor.add(peerServer1);
+		threadsToMonitor.add(nodeRelayer1);
+		threadsToMonitor.add(bootstrapper1);
+		threadsToMonitor.add(decrypter1);
+		threadsToMonitor.add(caretaker1);
+		
+		ArrayList<Thread> threadsToRemoveFromMonitoring = new ArrayList<Thread>();
+		ArrayList<Thread> threadsToAddToMonitoring = new ArrayList<Thread>();
+		
+		while(true) {
+			
+			for (Thread thread : threadsToMonitor) {
+				if (!thread.isAlive()) {
+					System.out.println("Thread ID "+thread.getId()+" of type "+thread.getClass().getName()+" appears to have failed. Attempting to restart it...");
+					
+					threadsToRemoveFromMonitoring.add(thread);
+					
+					thread = new Thread(thread);
+					thread.start();
+					
+					threadsToAddToMonitoring.add(thread);
+				}
+			}
+			
+			for (Thread thread : threadsToRemoveFromMonitoring) {
+				threadsToMonitor.remove(thread);				
+			}
+			threadsToRemoveFromMonitoring.clear();
+			
+			for (Thread thread : threadsToAddToMonitoring) {
+				threadsToMonitor.add(thread);				
+			}
+			threadsToAddToMonitoring.clear();
+			
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	private static void createMainKeyPair() throws NoSuchAlgorithmException, InvalidKeySpecException
