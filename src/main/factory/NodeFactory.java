@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
@@ -54,6 +55,18 @@ public abstract class NodeFactory
 		}
 		
 		return get(id);
+	}
+	
+	public static NodeRecord getNodeToRelay()
+	{
+		ArrayList<NodeRecord> recentNodes = NodeFactory.getRecentNodes();
+		
+		if (recentNodes.size()>0) {
+			Collections.shuffle(recentNodes);
+			return recentNodes.get(0);
+		}
+		
+		return null;
 	}
 	
 	public static ArrayList<NodeRecord> getRecentNodes()

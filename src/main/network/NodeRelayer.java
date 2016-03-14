@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import main.Main;
 import main.factory.NodeFactory;
+import main.record.NodeRecord;
 
 
 public class NodeRelayer extends Thread 
@@ -32,7 +33,12 @@ public class NodeRelayer extends Thread
 			
 			if (connections.size()>0)
 			{
-				connections.get(0).OutgoingObjects.add(NodeFactory.getRandomNode());
+				NodeRecord nodeToRelay = NodeFactory.getNodeToRelay();
+				
+				if (nodeToRelay != null) 
+				{
+					connections.get(0).OutgoingObjects.add(nodeToRelay);
+				}
 			}
 			
 		}
