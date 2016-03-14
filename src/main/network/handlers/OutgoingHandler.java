@@ -10,9 +10,13 @@ import main.record.NodeRecord;
 
 public abstract class OutgoingHandler 
 {
+	private static int sendMessageVersionNumber = 1;
+	private static int sendNodeVersionNumber = 1;
+	
 	public static boolean sendMessage(DataInputStream in, DataOutputStream out, MessageRecord message) throws SocketTimeoutException, IOException
 	{
 		out.writeChar('m');
+		out.writeInt(sendMessageVersionNumber);
 		out.writeUTF(message.content_sha256);
 		boolean needsMessage = in.readBoolean(); 
 		if (needsMessage)
@@ -46,6 +50,7 @@ public abstract class OutgoingHandler
 	public static boolean sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws IOException 
 	{
 		out.writeChar('n');
+		out.writeInt(sendNodeVersionNumber);
 		out.writeUTF(outgoingObject.host);
 		out.writeInt(outgoingObject.port);
 		
