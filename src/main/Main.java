@@ -53,6 +53,36 @@ public class Main
 		
 		System.out.println("*** Decent Messaging ***");
 		
+		System.out.println("Interpreting command line parameters...");
+		
+		int peerServerPort = 9991;
+		int localServerPort = 8881;
+		
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			
+			if (arg.equalsIgnoreCase("--peer-server-port")) {
+				if (args.length >= i) {
+					try {
+						peerServerPort = Integer.parseInt(args[i+1]);
+					} catch (NumberFormatException e) {
+						System.out.println("Invalid peer server port number.");
+						System.exit(1);
+					}
+				}
+			}
+			else if (arg.equalsIgnoreCase("--local-server-port")) {
+				if (args.length >= i) {
+					try {
+						localServerPort = Integer.parseInt(args[i+1]);
+					} catch (NumberFormatException e) {
+						System.out.println("Invalid peer server port number.");
+						System.exit(1);
+					}
+				}
+			}
+		}
+		
 		System.out.println("Setting system look and feel...");
 		try 
 		{
@@ -362,12 +392,12 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		System.out.println("Starting local server on port 8881...");
-		localServer1 = new LocalServer(8881);
+		System.out.println("Starting local server on port "+localServerPort+"...");
+		localServer1 = new LocalServer(localServerPort);
 		localServer1.start();
 		
-		System.out.println("Starting peer server on port 9991...");
-		peerServer1 = new PeerServer(9991);
+		System.out.println("Starting peer server on port "+peerServerPort+"...");
+		peerServer1 = new PeerServer(peerServerPort);
 		peerServer1.start();
 		
 		System.out.println("Starting message relayer...");
