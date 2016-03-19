@@ -76,7 +76,7 @@ public class Main
 					try {
 						localServerPort = Integer.parseInt(args[i+1]);
 					} catch (NumberFormatException e) {
-						System.out.println("Invalid peer server port number.");
+						System.out.println("Invalid local server port number.");
 						System.exit(1);
 					}
 				}
