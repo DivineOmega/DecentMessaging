@@ -59,6 +59,10 @@ public abstract class NodeFactory
 	
 	public static NodeRecord getNodeToRelay()
 	{
+		if (Math.random()<0.20) {
+			return NodeFactory.getRandomNode();
+		}
+		
 		ArrayList<NodeRecord> recentNodes = NodeFactory.getRecentNodes();
 		
 		if (recentNodes.size()>0) {
