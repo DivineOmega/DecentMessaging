@@ -57,6 +57,7 @@ public class Main
 		
 		int peerServerPort = 9991;
 		int localServerPort = 8881;
+		boolean showGUI = true;
 		
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
@@ -70,8 +71,7 @@ public class Main
 						System.exit(1);
 					}
 				}
-			}
-			else if (arg.equalsIgnoreCase("--local-server-port")) {
+			} else if (arg.equalsIgnoreCase("--local-server-port")) {
 				if (args.length >= i) {
 					try {
 						localServerPort = Integer.parseInt(args[i+1]);
@@ -80,6 +80,8 @@ public class Main
 						System.exit(1);
 					}
 				}
+			} else if (arg.equalsIgnoreCase("--hidden")) {
+				showGUI = false;
 			}
 		}
 		
@@ -93,16 +95,23 @@ public class Main
 			System.out.println("Error setting look and feel.");
 		}
 		
-		System.out.println("Adding system tray icon...");
+		
 		MenuItem removeNodeMenuItem = null;
 		PopupMenu nodePopup = null;
 		MenuItem dmAddressMenuItem = null;
-		if (!SystemTray.isSupported())
-		{
+		
+		if (!showGUI) {
+			
+			System.out.println("Skipping display of GUI, as requested...");
+			
+		} else if (!SystemTray.isSupported()) {
+			
             System.out.println("SystemTray is not supported.");
-        }
-		else
-		{
+            
+        } else {
+        	
+			System.out.println("Adding system tray icon...");
+			
 			SystemTray tray = SystemTray.getSystemTray();
 			URL imageURL = Main.class.getResource("resources/images/systemtrayicon.gif");
 			Image image = Toolkit.getDefaultToolkit().getImage(imageURL);
