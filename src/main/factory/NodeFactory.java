@@ -59,7 +59,7 @@ public abstract class NodeFactory
 	
 	public static NodeRecord getNodeToRelay()
 	{
-		if (Math.random()<0.20) {
+		if (Math.random()<0.10) {
 			return NodeFactory.getRandomNode();
 		}
 		
