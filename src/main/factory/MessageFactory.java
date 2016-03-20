@@ -21,6 +21,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import main.DatabaseConnection;
+import main.Main;
 import main.record.MessageRecord;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -266,7 +267,7 @@ public abstract class MessageFactory
 		
 		if (id!=0)
 		{
-			String content_path = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"message"+System.getProperty("file.separator")+content_sha256;
+			String content_path = Main.storageDirectory+"message"+System.getProperty("file.separator")+content_sha256;
 			FileOutputStream fos = new FileOutputStream(content_path);
 			fos.write(encryptedContent);
 			fos.close();

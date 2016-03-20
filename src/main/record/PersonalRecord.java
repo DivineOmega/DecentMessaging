@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import main.DatabaseConnection;
+import main.Main;
 
 public class PersonalRecord 
 {
@@ -31,7 +32,7 @@ public class PersonalRecord
 		this.subject = subject;
 		this.publickey_modulus = new BigInteger(publickey_modulus);
 		this.publickey_exponent = new BigInteger(publickey_exponent);
-		String content_path = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"personal"+System.getProperty("file.separator")+id;
+		String content_path = Main.storageDirectory+"personal"+System.getProperty("file.separator")+id;
 		this.content_file = new File(content_path);
 	}
 	

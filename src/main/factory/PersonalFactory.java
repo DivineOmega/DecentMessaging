@@ -56,7 +56,7 @@ public abstract class PersonalFactory
 		
 		if (id!=0)
 		{
-			String content_path = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"personal"+System.getProperty("file.separator")+id;
+			String content_path = Main.storageDirectory+"personal"+System.getProperty("file.separator")+id;
 			FileOutputStream fos = new FileOutputStream(content_path);
 			OutputStreamWriter out = new OutputStreamWriter(fos, "UTF-8");
 			out.write(decryptedStrings[2]);

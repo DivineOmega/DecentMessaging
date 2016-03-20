@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class DatabaseConnection 
 {
-	private String dbConnectionString = "jdbc:h2:~/.decentmessaging/database;AUTO_SERVER=TRUE";
+	private String dbConnectionString = "jdbc:h2:"+Main.storageDirectory+"database;AUTO_SERVER=TRUE";
 	private static Connection conn = null;
 	
 	public boolean setupSchema()

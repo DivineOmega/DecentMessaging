@@ -46,6 +46,7 @@ public class Main
 	static LocalServer localServer1;
 	public static PeerServer peerServer1;
 	public static String dmAddress = null;
+	public static String storageDirectory = null;
 	
 	public static void main(String[] args)
 	{
@@ -54,6 +55,9 @@ public class Main
 		System.out.println("*** Decent Messaging ***");
 		
 		System.out.println("Interpreting command line parameters...");
+		
+		storageDirectory = System.getProperty("user.home") + System.getProperty("file.separator") + 
+				".decentmessaging" + System.getProperty("file.separator");
 		
 		int peerServerPort = 9991;
 		int localServerPort = 8881;
@@ -82,6 +86,9 @@ public class Main
 				}
 			} else if (arg.equalsIgnoreCase("--hidden")) {
 				showGUI = false;
+			} else if (arg.equalsIgnoreCase("--portable")) {
+				storageDirectory = "." + System.getProperty("file.separator") + 
+						".decentmessaging" + System.getProperty("file.separator");
 			}
 		}
 		
@@ -321,7 +328,7 @@ public class Main
 			}
 		}
 	
-		String directoryToCreate = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging";
+		String directoryToCreate = Main.storageDirectory;
 		System.out.println("Checking/creating main directory... "+directoryToCreate);
 		if (!(new File(directoryToCreate)).exists() && !(new File(directoryToCreate)).mkdir())
 		{
@@ -329,7 +336,7 @@ public class Main
 			System.exit(0);
 		}
 		
-		directoryToCreate  = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"message";
+		directoryToCreate  = Main.storageDirectory+"message";
 		System.out.println("Checking/creating message directory... "+directoryToCreate);
 		if (!(new File(directoryToCreate)).exists() &&!(new File(directoryToCreate)).mkdir())
 		{
@@ -337,7 +344,7 @@ public class Main
 			System.exit(0);
 		}
 		
-		directoryToCreate  = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"personal";
+		directoryToCreate  = Main.storageDirectory+"personal";
 		System.out.println("Checking/creating personal directory... "+directoryToCreate);
 		if (!(new File(directoryToCreate)).exists() &&!(new File(directoryToCreate)).mkdir())
 		{

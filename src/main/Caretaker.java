@@ -11,7 +11,7 @@ public class Caretaker extends Thread
 	
 	public void run()
 	{
-		File messageDirectory = new File(System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"message");
+		File messageDirectory = new File(Main.storageDirectory+"message");
 		long freeSpace = 0;
 		long usedSpace = 0;
 		

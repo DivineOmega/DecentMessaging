@@ -60,7 +60,7 @@ public class MessageRecord
 		this.decryption_attempted = decryption_attempted;
 		this.content_sha256 = content_sha256;
 		this.content_size = content_size;
-		String content_path = System.getProperty("user.home")+System.getProperty("file.separator")+".decentmessaging"+System.getProperty("file.separator")+"message"+System.getProperty("file.separator")+content_sha256;
+		String content_path = Main.storageDirectory+"message"+System.getProperty("file.separator")+content_sha256;
 		this.content_file = new File(content_path);
 		this.iv = iv;
 		this.content_key = content_key;
