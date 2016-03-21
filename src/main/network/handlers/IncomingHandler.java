@@ -93,6 +93,14 @@ public abstract class IncomingHandler
 			String host = in.readUTF();
 			int port = in.readInt();
 			
+			if (host.length() <=4 host.length() >= 80) {
+				return false;
+			}
+			
+			if (port < 0 || port > 65535) {
+				return false;
+			}
+			
 			NodeRecord node = NodeFactory.createNew(host, port);
 			
 			if (node == null) {
