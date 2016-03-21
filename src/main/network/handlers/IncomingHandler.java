@@ -93,7 +93,7 @@ public abstract class IncomingHandler
 			String host = in.readUTF();
 			int port = in.readInt();
 			
-			if (host.length() <=4 host.length() >= 80) {
+			if (host.length() <=4 || host.length() >= 80) {
 				return false;
 			}
 			
