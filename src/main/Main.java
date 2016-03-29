@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -448,6 +450,7 @@ public class Main
 		ArrayList<Thread> threadsToMonitor = new ArrayList<Thread>();
 		threadsToMonitor.add(localServer1);
 		threadsToMonitor.add(peerServer1);
+		threadsToMonitor.add(messageRelayer1);
 		threadsToMonitor.add(nodeRelayer1);
 		threadsToMonitor.add(bootstrapper1);
 		threadsToMonitor.add(decrypter1);
@@ -462,12 +465,38 @@ public class Main
 				if (!thread.isAlive()) {
 					System.out.println("Thread ID "+thread.getId()+" of type "+thread.getClass().getName()+" appears to have failed. Attempting to restart it...");
 					
-					threadsToRemoveFromMonitoring.add(thread);
+					try {
+						
+						Constructor<?>[] constructors = thread.getClass().getConstructors();
+						
+						Thread newThread = null;
+											
+						for (Constructor<?> constructor : constructors) {
+							if (constructor.getParameterTypes().length==0) {
+								newThread = (Thread) constructor.newInstance();
+							} else {
+								if (constructor.getDeclaringClass().getName()=="main.network.PeerServer") {
+									newThread = (Thread) constructor.newInstance(peerServerPort);
+								} else if (constructor.getDeclaringClass().getName()=="main.network.LocalServer") {
+									newThread = (Thread) constructor.newInstance(localServerPort);
+								}
+							}
+						}
+						
+						newThread.start();
+						
+						System.out.println("Succesfully restarted thread of type "+newThread.getClass().getName()+" with Thread ID "+newThread.getId()+".");
+						
+						threadsToRemoveFromMonitoring.add(thread);
+						threadsToAddToMonitoring.add(newThread);
 					
-					thread = new Thread(thread);
-					thread.start();
+					} catch (InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException e) {
+						System.out.println("Error restarting a monitored thread. This node is not fully functional and should be restarted.");
+						e.printStackTrace();
+						
+					}
 					
-					threadsToAddToMonitoring.add(thread);
+					
 				}
 			}
 			
