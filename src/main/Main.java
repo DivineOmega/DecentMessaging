@@ -182,7 +182,7 @@ public class Main
 		    };
 		    addNodeMenuItem.addActionListener(addNodeMenuItemListener);
 		    nodePopup.add(addNodeMenuItem);
-		    MenuItem addLANNodesMenuItem = new MenuItem();
+		    /*MenuItem addLANNodesMenuItem = new MenuItem();
 		    try
 			{
 				ArrayList<InetAddress> myIPs = getMyIPs();
@@ -244,7 +244,7 @@ public class Main
 			{
 				e2.printStackTrace();
 			}
-		    nodePopup.add(addLANNodesMenuItem);
+		    nodePopup.add(addLANNodesMenuItem);*/
 		    removeNodeMenuItem  = new MenuItem("Remove node...");
 		    ActionListener removeNodeMenuItemListener = new ActionListener()
 		    {

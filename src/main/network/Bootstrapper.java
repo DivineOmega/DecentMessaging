@@ -19,6 +19,40 @@ public class Bootstrapper extends Thread
 	
 	public void run()
 	{
+		addBootstrapNodes();		
+		performBootstrapping();
+	}
+	
+	private void addBootstrapNodes()
+	{
+		// LAN nodes
+		try {
+			ArrayList<InetAddress> myIPs = Main.getMyIPs();
+			String[] ipParts = myIPs.get(0).getHostAddress().split("\\.");
+			int x = 1;
+			while (x <=254)
+    		{
+    			String host = ipParts[0]+"."+ipParts[1]+"."+ipParts[2]+"."+Integer.toString(x);
+    			NodeFactory.createNew(host, 9991);
+    			x++;
+    		}
+		} catch (IOException e) {
+			System.out.println("Error added LAN nodes.");
+		}
+		
+		// Internet nodes
+		ArrayList<String> internetNodes = new ArrayList<String>();
+		internetNodes.add("81.108.218.180:9991");
+		
+		for (String internetNode : internetNodes) {
+			String[] internetNodeParts = internetNode.split(":");
+			NodeFactory.createNew(internetNodeParts[0], Integer.parseInt(internetNodeParts[1]));
+		}
+		
+	}
+	
+	private void performBootstrapping()
+	{
 		ArrayList<NodeRecord> nodes = null;
 		
 		while(true)
