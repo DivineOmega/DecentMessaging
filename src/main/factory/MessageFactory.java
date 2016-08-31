@@ -115,7 +115,7 @@ public abstract class MessageFactory
 		try
 		{
 			Connection conn = DatabaseConnection.getConn();
-			String sql = "select id from message where content_size != 0 order by times_broadcast, content_size, originally_received limit 1";
+			String sql = "select id from message where content_size != 0 order by times_broadcast, originally_received limit 1";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next())
