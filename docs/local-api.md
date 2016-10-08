@@ -28,9 +28,19 @@ The protocol uses numeric codes prefixed with an asterisk to indicate status. Th
 * `*2XX` - Errors. See the 'Error codes' table below for more details.
 * `*3XX` - Informational messages, usually indicating success or providing results.
 
-### Request/Informational codes
+### Request codes
 
-*TODO: Provide a reference for all informational codes that may be encountered.*
+| Request Number  | Description |
+| ------------- | ------------- |
+| 100 | Request for a command. This is send by the local server whenever it receives a new connection.  |
+| 101 | When attempting to send a message, this is a request for the Decent Messaging address. |
+| 103 | When attempting to send a message, this is a request for the message's subject line. |
+| 104 | When attempting to send a message, this is a request for the message's content. It can contain multiple lines if necessary. You should end input of the message with a period ('.') on a new line. |
+| 111 | When attempting to retrieve a personal message, this is request for the personal message's ID, as provided by the `list` command. |
+| 121 | When attempting to retrieve a list of personal messages, this is a request for a UNIX timestamp. Messages returned will be limited to those received after this timestamp. |
+| 141 | When attempting to delete a personal message, this is a request for the personal message's ID, as provided by the `list` command. |
+| 151 | When attempting to add a new node, this is a request for the node's IP address or host name. |
+| 152 | When attempting to add a new node, this is a request for the node's port number. |
 
 ### Error codes
 
@@ -48,3 +58,16 @@ The protocol uses numeric codes prefixed with an asterisk to indicate status. Th
 | 241  | Client provided an non-numeric personal message ID while attempting to delete a personal message. |
 | 242  | Client requested deletion of a personal message that does not exist. |
 | 244  | An error occurred deleting the personal message. The database record for this personal message and/or its content within the personal message file may not have been deleted. |
+
+### Informational codes
+
+| Information Number  | Description |
+| ------------- | ------------- |
+| 300 | The submitted message has been queued for delivery, and will be sent shortly. |
+| 310 | Indicates the beginning of the personal message requested. |
+| 311 | Indicates the end of the personal message requested. |
+| 340 | Personal message deleted. |
+| 320 | Indicates the beginning of the personal message listing requested. |
+| 321 | Indicates the end of the personal message listing requested. |
+| 330 | Displayed upon a request for the Decent Messaging address of the currently running node, via the `me` command. |
+| 350 | New node added to list of available pool of nodes. It may be connected to shortly if the current node does not have sufficient active connections. |
