@@ -20,7 +20,7 @@ public class MessageRelayer extends Thread
 		
 			try 
 			{
-				Thread.sleep(6000);
+				Thread.sleep(500); // 0.5 seconds
 			} 
 			catch (InterruptedException e) 
 			{

@@ -20,7 +20,7 @@ public class NodeRelayer extends Thread
 		
 			try 
 			{
-				Thread.sleep(60*1000);
+				Thread.sleep(10*1000); // 10 seconds
 			} 
 			catch (InterruptedException e) 
 			{
