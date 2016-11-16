@@ -455,10 +455,7 @@ public class Main
 		threadsToMonitor.add(bootstrapper1);
 		threadsToMonitor.add(decrypter1);
 		threadsToMonitor.add(caretaker1);
-		
-		ArrayList<Thread> threadsToRemoveFromMonitoring = new ArrayList<Thread>();
-		ArrayList<Thread> threadsToAddToMonitoring = new ArrayList<Thread>();
-		
+				
 		while(true) {
 			
 			for (Thread thread : threadsToMonitor) {
@@ -468,27 +465,23 @@ public class Main
 					try {
 						
 						Constructor<?>[] constructors = thread.getClass().getConstructors();
-						
-						Thread newThread = null;
-											
+																	
 						for (Constructor<?> constructor : constructors) {
 							if (constructor.getParameterTypes().length==0) {
-								newThread = (Thread) constructor.newInstance();
+								thread = (Thread) constructor.newInstance();
 							} else {
 								if (constructor.getDeclaringClass().getName()=="main.network.PeerServer") {
-									newThread = (Thread) constructor.newInstance(peerServerPort);
+									thread = (Thread) constructor.newInstance(peerServerPort);
 								} else if (constructor.getDeclaringClass().getName()=="main.network.LocalServer") {
-									newThread = (Thread) constructor.newInstance(localServerPort);
+									thread = (Thread) constructor.newInstance(localServerPort);
 								}
 							}
 						}
 						
-						newThread.start();
+						thread.start();
 						
-						System.out.println("Succesfully restarted thread of type "+newThread.getClass().getName()+" with Thread ID "+newThread.getId()+".");
+						System.out.println("Succesfully restarted thread of type "+thread.getClass().getName()+" with Thread ID "+thread.getId()+".");
 						
-						threadsToRemoveFromMonitoring.add(thread);
-						threadsToAddToMonitoring.add(newThread);
 					
 					} catch (InvocationTargetException | InstantiationException | IllegalAccessException | IllegalArgumentException e) {
 						System.out.println("Error restarting a monitored thread. This node is not fully functional and should be restarted.");
@@ -499,16 +492,6 @@ public class Main
 					
 				}
 			}
-			
-			for (Thread thread : threadsToRemoveFromMonitoring) {
-				threadsToMonitor.remove(thread);				
-			}
-			threadsToRemoveFromMonitoring.clear();
-			
-			for (Thread thread : threadsToAddToMonitoring) {
-				threadsToMonitor.add(thread);				
-			}
-			threadsToAddToMonitoring.clear();
 			
 			try {
 				Thread.sleep(5000);
