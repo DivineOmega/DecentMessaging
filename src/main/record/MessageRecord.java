@@ -30,7 +30,6 @@ import javax.crypto.NoSuchPaddingException;
 import main.DatabaseConnection;
 import main.Main;
 
-import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.crypto.DataLengthException;
 import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.bouncycastle.crypto.engines.AESEngine;

@@ -22,8 +22,6 @@ import main.record.MessageRecord;
 import main.record.NodeRecord;
 import main.record.PersonalRecord;
 
-import org.apache.commons.codec.binary.Base64;
-
 
 public class LocalServer extends Thread 
 {

@@ -5,18 +5,14 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.bitlet.weupnp.GatewayDevice;
 import org.bitlet.weupnp.GatewayDiscover;
-import org.bitlet.weupnp.PortMappingEntry;
 import org.xml.sax.SAXException;
 
 import main.Main;
 import main.factory.NodeFactory;
-import main.record.NodeRecord;
 
 
 public class PeerServer extends Thread 

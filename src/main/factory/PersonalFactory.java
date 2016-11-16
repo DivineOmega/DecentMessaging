@@ -3,7 +3,6 @@ package main.factory;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
@@ -18,7 +17,6 @@ import main.DatabaseConnection;
 import main.Main;
 import main.record.PersonalRecord;
 
-import org.apache.commons.codec.binary.Base64;
 
 public abstract class PersonalFactory 
 {	

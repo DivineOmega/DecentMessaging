@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-import com.sun.org.apache.xpath.internal.axes.SelfIteratorNoPredicate;
-
 import main.DatabaseConnection;
 import main.record.NodeRecord;
 
