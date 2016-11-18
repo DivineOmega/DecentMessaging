@@ -15,6 +15,12 @@ public class GUIUpdater extends Thread
 		
 		while(true)
 		{
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			if (Main.peerServer1 != null && Main.peerServer1.connections != null) {
 				
 				connections.clear();
@@ -28,12 +34,8 @@ public class GUIUpdater extends Thread
 					Main.mainWindow.addToConnectionsList(peerConnection.getHostAddress(), peerConnection.getPortNumber());
 				}
 				
-			}
-			
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Main.mainWindow.updateMyDecentMessagingAddress(Main.dmAddress);
+				
 			}
 		}
 	}

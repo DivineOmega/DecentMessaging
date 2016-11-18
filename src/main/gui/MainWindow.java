@@ -12,12 +12,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JTextArea;
 import javax.swing.ListModel;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class MainWindow {
 
@@ -25,6 +27,7 @@ public class MainWindow {
 	private JLabel lblActiveConnections;
 	private ListModel listModel;
 	private JTextField textNodeToAdd;
+	private JTextArea textAreaDecentMessagingAddress;
 
 	public MainWindow() {
 		initialize();
@@ -33,7 +36,7 @@ public class MainWindow {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Decent Messaging");
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
@@ -49,7 +52,6 @@ public class MainWindow {
 		
 		listModel = new DefaultListModel<>();
 		JList connectionsList = new JList(listModel);
-		connectionsList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		connectionsPanel.add(connectionsList, "flowy,cell 0 2,grow");
 		
 		JLabel lblManuallyAddNode = new JLabel("Manually add node:");
@@ -103,9 +105,21 @@ public class MainWindow {
 		});
 		connectionsPanel.add(btnAdd, "cell 0 3");
 		
+		JPanel messagingPanel = new JPanel();
+		tabbedPane.addTab("Messaging", null, messagingPanel, null);
+		messagingPanel.setLayout(new MigLayout("", "[grow]", "[][][grow][]"));
+		
+		JLabel lblYourDecentMessaging = new JLabel("Your Decent Messaging Address:");
+		messagingPanel.add(lblYourDecentMessaging, "cell 0 0");
+		
+		textAreaDecentMessagingAddress = new JTextArea();
+		textAreaDecentMessagingAddress.setLineWrap(true);
+		messagingPanel.add(textAreaDecentMessagingAddress, "cell 0 2,grow");
+		
 		JPanel aboutPanel = new JPanel();
 		tabbedPane.addTab("About", null, aboutPanel, null);
 		aboutPanel.setLayout(new MigLayout("", "[]", "[]"));
+		
 	}
 	
 	public void show() {
@@ -122,6 +136,10 @@ public class MainWindow {
 	
 	public void addToConnectionsList(String host, int port) {
 		((DefaultListModel<Object>) listModel).addElement(host+":"+port);
+	}
+	
+	public void updateMyDecentMessagingAddress(String decentMessagingAddress) {
+		textAreaDecentMessagingAddress.setText(decentMessagingAddress);
 	}
 
 }
