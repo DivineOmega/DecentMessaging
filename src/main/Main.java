@@ -121,12 +121,7 @@ public class Main
             System.out.println("SystemTray is not supported.");
             
         } else {
-        	
-        	System.out.println("Displaying main window...");
-        	
-        	mainWindow = new MainWindow();
-    		mainWindow.show();
-        	
+        	        	
 			System.out.println("Adding system tray icon...");
 			
 			SystemTray tray = SystemTray.getSystemTray();
@@ -336,6 +331,11 @@ public class Main
 			{
 				System.out.println("Error adding system tray icon.");
 			}
+			
+			System.out.println("Displaying main window...");
+        	
+        	mainWindow = new MainWindow();
+    		mainWindow.show();
 		}
 	
 		String directoryToCreate = Main.storageDirectory;
