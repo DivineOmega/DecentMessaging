@@ -34,6 +34,8 @@ import javax.swing.UIManager;
 import main.factory.NodeFactory;
 import main.factory.PrivateKeyFactory;
 import main.factory.PublicKeyFactory;
+import main.gui.GUIUpdater;
+import main.gui.MainWindow;
 import main.network.Bootstrapper;
 import main.network.LocalServer;
 import main.network.MessageRelayer;
@@ -45,10 +47,12 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Main 
 {
-	static LocalServer localServer1;
+	public static LocalServer localServer1;
 	public static PeerServer peerServer1;
 	public static String dmAddress = null;
 	public static String storageDirectory = null;
+	
+	public static MainWindow mainWindow = null; 
 	
 	public static void main(String[] args)
 	{
@@ -104,7 +108,6 @@ public class Main
 			System.out.println("Error setting look and feel.");
 		}
 		
-		
 		MenuItem removeNodeMenuItem = null;
 		PopupMenu nodePopup = null;
 		MenuItem dmAddressMenuItem = null;
@@ -118,6 +121,11 @@ public class Main
             System.out.println("SystemTray is not supported.");
             
         } else {
+        	
+        	System.out.println("Displaying main window...");
+        	
+        	mainWindow = new MainWindow();
+    		mainWindow.show();
         	
 			System.out.println("Adding system tray icon...");
 			
@@ -437,6 +445,10 @@ public class Main
 		System.out.println("Starting caretaker...");
 		Caretaker caretaker1 = new Caretaker();
 		caretaker1.start();
+		
+		System.out.println("Starting GUI updater...");
+		GUIUpdater guiUpdater = new GUIUpdater();
+		guiUpdater.start();
 			
 		System.out.println("Enabling system tray menu items...");
 		if (dmAddressMenuItem!=null) dmAddressMenuItem.setEnabled(true);

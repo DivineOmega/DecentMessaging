@@ -154,4 +154,11 @@ public class PeerConnection extends Thread
 		}
 	}
 	
+	public String getHostAddress() {
+		return socket.getInetAddress().getHostAddress();
+	}
+	
+	public int getPortNumber() {
+		return socket.getPort();
+	}
 }
