@@ -54,6 +54,9 @@ public class Main
 	
 	public static MainWindow mainWindow = null; 
 	
+	public static int peerServerPort = 9991;
+	public static int localServerPort = 8881;
+	
 	public static void main(String[] args)
 	{
 		System.setProperty("line.separator", "\n");
@@ -65,8 +68,6 @@ public class Main
 		storageDirectory = System.getProperty("user.home") + System.getProperty("file.separator") + 
 				".decentmessaging" + System.getProperty("file.separator");
 		
-		int peerServerPort = 9991;
-		int localServerPort = 8881;
 		boolean showGUI = true;
 		
 		for (int i = 0; i < args.length; i++) {

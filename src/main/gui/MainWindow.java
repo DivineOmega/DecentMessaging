@@ -2,6 +2,7 @@ package main.gui;
 
 import javax.swing.JFrame;
 
+import main.Main;
 import main.factory.NodeFactory;
 import main.network.PeerConnection;
 import main.record.NodeRecord;
@@ -72,15 +73,14 @@ public class MainWindow {
 				String input = textNodeToAdd.getText();
 				String[] inputParts = input.split(":");
 				
-				if (inputParts.length!=2) {
-					JOptionPane.showMessageDialog(null, "Please enter the node to add in the format IP_ADDRESS_OR_HOST_NAME:PORT.", "Decent Messaging", JOptionPane.ERROR_MESSAGE);
-	        		return;
-				}
-				
 				String host = inputParts[0].trim();
-	        	String port = inputParts[1].trim(); 
-	        			
-	        	if (host.equals("") || port.equals(""))
+				String port = Integer.toString(Main.peerServerPort);;
+				
+				if (inputParts.length>=2) {
+					port = inputParts[1].trim(); 
+				}
+	        	
+	        	if (host.equals(""))
 	        	{
 	        		JOptionPane.showMessageDialog(null, "Please enter the node to add in the format IP_ADDRESS_OR_HOST:PORT.", "Decent Messaging", JOptionPane.ERROR_MESSAGE);
 	        		return;
@@ -139,7 +139,7 @@ public class MainWindow {
 		for (PeerConnection connection : connections) {
 			
 			boolean needToAdd = true;
-			String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
+			String connectionString = connection.getHostAddress();
 			
 			for (int j = 0; j < listModel.size(); j++) {
 				if (listModel.get(j).equals(connectionString)) {
@@ -157,7 +157,7 @@ public class MainWindow {
 			boolean needToRemove = true;
 			
 			for (PeerConnection connection : connections) {
-				String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
+				String connectionString = connection.getHostAddress();
 				if (listModel.get(j).equals(connectionString)) {
 					needToRemove = false;
 				}
