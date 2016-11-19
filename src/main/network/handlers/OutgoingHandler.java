@@ -36,7 +36,6 @@ public abstract class OutgoingHandler
 				if (messageAccepted)
 				{
 					message.alterTimesBroadcast(1);
-					return true;
 				}
 			}
 		}
@@ -44,10 +43,10 @@ public abstract class OutgoingHandler
 		{
 			message.alterTimesBroadcast(1);
 		}
-		return false;
+		return true;
 	}
 
-	public static boolean sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws IOException 
+	public static boolean sendNode(DataInputStream in, DataOutputStream out, NodeRecord outgoingObject) throws SocketTimeoutException, IOException 
 	{
 		out.writeChar('n');
 		out.writeInt(sendNodeVersionNumber);

@@ -83,7 +83,7 @@ public abstract class IncomingHandler
 		}
 	}
 
-	public static boolean receiveNode(DataInputStream in, DataOutputStream out) throws IOException 
+	public static boolean receiveNode(DataInputStream in, DataOutputStream out) throws SocketTimeoutException, IOException 
 	{
 		int sendNodeVersionNumber = in.readInt();
 		
