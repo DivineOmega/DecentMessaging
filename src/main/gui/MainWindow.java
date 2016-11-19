@@ -139,7 +139,7 @@ public class MainWindow {
 		for (PeerConnection connection : connections) {
 			
 			boolean needToAdd = true;
-			String connectionString = connection.getHostAddress();
+			String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
 			
 			for (int j = 0; j < listModel.size(); j++) {
 				if (listModel.get(j).equals(connectionString)) {
@@ -157,7 +157,7 @@ public class MainWindow {
 			boolean needToRemove = true;
 			
 			for (PeerConnection connection : connections) {
-				String connectionString = connection.getHostAddress();
+				String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
 				if (listModel.get(j).equals(connectionString)) {
 					needToRemove = false;
 				}
