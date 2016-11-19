@@ -118,7 +118,7 @@ public class MainWindow {
 		textAreaDecentMessagingAddress = new JTextArea();
 		textAreaDecentMessagingAddress.setEditable(false);
 		textAreaDecentMessagingAddress.setLineWrap(true);
-		messagingPanel.add(textAreaDecentMessagingAddress, "cell 0 2,grow");
+		messagingPanel.add(textAreaDecentMessagingAddress, "cell 0 2,grow, wmin 10, hmin 10");
 		
 		JPanel aboutPanel = new JPanel();
 		tabbedPane.addTab("About", null, aboutPanel, null);
