@@ -86,6 +86,7 @@ public class PeerConnection extends Thread
 				if (IncomingHandler.receiveMessage(in, out))
 				{
 					NodeRecord.updateLastSeenBySocket(socket);
+					this.markAsStillActive();
 				}
 			}
 			else if (command=='n') // Incoming node 
@@ -93,9 +94,9 @@ public class PeerConnection extends Thread
 				if (IncomingHandler.receiveNode(in, out))
 				{
 					NodeRecord.updateLastSeenBySocket(socket);
+					this.markAsStillActive();
 				}
 			}
-			this.markAsStillActive();
 		} 
 		catch (SocketTimeoutException e)
 		{
@@ -121,6 +122,7 @@ public class PeerConnection extends Thread
 				if (OutgoingHandler.sendMessage(in, out, (MessageRecord) OutgoingObject))
 				{
 					NodeRecord.updateLastSeenBySocket(socket);
+					this.markAsStillActive();
 				}
 			}
 			else if (OutgoingObject.getClass() == NodeRecord.class)
@@ -128,9 +130,9 @@ public class PeerConnection extends Thread
 				if (OutgoingHandler.sendNode(in, out, (NodeRecord) OutgoingObject))
 				{
 					NodeRecord.updateLastSeenBySocket(socket);
+					this.markAsStillActive();
 				}
 			}
-			this.markAsStillActive();
 		} 
 		catch (SocketTimeoutException e)
 		{
