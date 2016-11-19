@@ -446,9 +446,12 @@ public class Main
 		Caretaker caretaker1 = new Caretaker();
 		caretaker1.start();
 		
-		System.out.println("Starting GUI updater...");
-		GUIUpdater guiUpdater = new GUIUpdater();
-		guiUpdater.start();
+		GUIUpdater guiUpdater = null;
+		if (showGUI) {
+			System.out.println("Starting GUI updater...");
+			guiUpdater = new GUIUpdater();
+			guiUpdater.start();
+		}
 			
 		System.out.println("Enabling system tray menu items...");
 		if (dmAddressMenuItem!=null) dmAddressMenuItem.setEnabled(true);
@@ -467,6 +470,9 @@ public class Main
 		threadsToMonitor.add(bootstrapper1);
 		threadsToMonitor.add(decrypter1);
 		threadsToMonitor.add(caretaker1);
+		if (guiUpdater!=null) {
+			threadsToMonitor.add(guiUpdater);
+		}
 				
 		while(true) {
 			

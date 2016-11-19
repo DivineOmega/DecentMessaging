@@ -3,6 +3,7 @@ package main.gui;
 import javax.swing.JFrame;
 
 import main.factory.NodeFactory;
+import main.network.PeerConnection;
 import main.record.NodeRecord;
 import net.miginfocom.swing.MigLayout;
 
@@ -19,13 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTextPane;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JLabel lblActiveConnections;
-	private ListModel listModel;
+	private DefaultListModel<String> listModel;
 	private JTextField textNodeToAdd;
 	private JTextArea textAreaDecentMessagingAddress;
 
@@ -113,6 +116,7 @@ public class MainWindow {
 		messagingPanel.add(lblYourDecentMessaging, "cell 0 0");
 		
 		textAreaDecentMessagingAddress = new JTextArea();
+		textAreaDecentMessagingAddress.setEditable(false);
 		textAreaDecentMessagingAddress.setLineWrap(true);
 		messagingPanel.add(textAreaDecentMessagingAddress, "cell 0 2,grow");
 		
@@ -129,17 +133,51 @@ public class MainWindow {
 	public void updateActiveConnectionsCount(int number) {
 		lblActiveConnections.setText("Active connections: "+number)	;
 	}
+		
+	public void updateConnectionsList(ArrayList<PeerConnection> connections) {
+		
+		for (PeerConnection connection : connections) {
+			
+			boolean needToAdd = true;
+			String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
+			
+			for (int j = 0; j < listModel.size(); j++) {
+				if (listModel.get(j).equals(connectionString)) {
+					needToAdd = false;
+				}
+			}
+			
+			if (needToAdd) {
+				listModel.addElement(connectionString);
+			}
+		}
+		
+		for (int j = 0; j < listModel.size(); j++) {
+		
+			boolean needToRemove = true;
+			
+			for (PeerConnection connection : connections) {
+				String connectionString = connection.getHostAddress()+":"+connection.getPortNumber();
+				if (listModel.get(j).equals(connectionString)) {
+					needToRemove = false;
+				}
+			}
+			
+			if (needToRemove) {
+				listModel.removeElementAt(j);
+			}
+		}
 	
-	public void clearConnectionsList() {
-		((DefaultListModel<Object>) listModel).clear();
-	}
-	
-	public void addToConnectionsList(String host, int port) {
-		((DefaultListModel<Object>) listModel).addElement(host+":"+port);
+		
+
 	}
 	
 	public void updateMyDecentMessagingAddress(String decentMessagingAddress) {
-		textAreaDecentMessagingAddress.setText(decentMessagingAddress);
+		if (!textAreaDecentMessagingAddress.getText().equals(decentMessagingAddress)) {
+			textAreaDecentMessagingAddress.setText(decentMessagingAddress);
+		}
 	}
+
+	
 
 }

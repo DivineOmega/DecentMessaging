@@ -21,22 +21,19 @@ public class GUIUpdater extends Thread
 				e.printStackTrace();
 			}
 			
-			if (Main.peerServer1 != null && Main.peerServer1.connections != null) {
-				
-				connections.clear();
-				connections.addAll(Main.peerServer1.connections);
-				
-				Main.mainWindow.updateActiveConnectionsCount(connections.size());
-				
-				Main.mainWindow.clearConnectionsList();
-				
-				for (PeerConnection peerConnection : connections) {
-					Main.mainWindow.addToConnectionsList(peerConnection.getHostAddress(), peerConnection.getPortNumber());
-				}
-				
-				Main.mainWindow.updateMyDecentMessagingAddress(Main.dmAddress);
-				
+			if (Main.mainWindow == null || Main.peerServer1 == null || Main.peerServer1.connections == null) {
+				continue;
 			}
+			
+			connections.clear();
+			connections.addAll(Main.peerServer1.connections);
+			
+			Main.mainWindow.updateActiveConnectionsCount(connections.size());
+			
+			Main.mainWindow.updateConnectionsList(connections);
+							
+			Main.mainWindow.updateMyDecentMessagingAddress(Main.dmAddress);
+			
 		}
 	}
 
