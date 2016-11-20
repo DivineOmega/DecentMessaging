@@ -28,14 +28,16 @@ public class Bootstrapper extends Thread
 		// LAN nodes
 		try {
 			ArrayList<InetAddress> myIPs = Main.getMyIPs();
-			String[] ipParts = myIPs.get(0).getHostAddress().split("\\.");
-			int x = 1;
-			while (x <=254)
-    		{
-    			String host = ipParts[0]+"."+ipParts[1]+"."+ipParts[2]+"."+Integer.toString(x);
-    			NodeFactory.createNew(host, 9991);
-    			x++;
-    		}
+			for (InetAddress myIP : myIPs) {
+				String[] ipParts = myIP.getHostAddress().split("\\.");
+				int x = 1;
+				while (x <=254)
+	    		{
+	    			String host = ipParts[0]+"."+ipParts[1]+"."+ipParts[2]+"."+Integer.toString(x);
+	    			NodeFactory.createNew(host, 9991);
+	    			x++;
+	    		}
+			}
 		} catch (IOException e) {
 			System.out.println("Error added LAN nodes.");
 		}
