@@ -64,7 +64,7 @@ public class Bootstrapper extends Thread
 			
 			try 
 			{
-				Thread.sleep(1000);
+				Thread.sleep(4000); // 4 seconds
 			} 
 			catch (InterruptedException e) 
 			{
@@ -76,7 +76,7 @@ public class Bootstrapper extends Thread
 			
 			try 
 			{
-				Thread.sleep(1000);
+				Thread.sleep(4000); // 4 seconds
 			} 
 			catch (InterruptedException e) 
 			{
