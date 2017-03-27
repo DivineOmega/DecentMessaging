@@ -239,12 +239,7 @@ public class Main
 			guiUpdater = new GUIUpdater();
 			guiUpdater.start();
 		}
-			
-		System.out.println("Enabling system tray menu items...");
-		if (dmAddressMenuItem!=null) dmAddressMenuItem.setEnabled(true);
-		if (removeNodeMenuItem!=null) removeNodeMenuItem.setEnabled(true);
-		if (removeNodeMenuItem!=null) nodePopup.setEnabled(true);
-		
+
 		System.out.println("Start up complete.");
 		
 		System.out.println("Thread monitoring starting...");
