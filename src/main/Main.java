@@ -90,22 +90,22 @@ public class Main
 				commandLineInterfaceMode = true;
 			}
 		}
-		
-		System.out.println("Setting system look and feel...");
-		try 
-		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} 
-		catch (Exception e) 
-		{
-			System.out.println("Error setting look and feel.");
-		}
-				
+						
 		if (!showGUI) {
 			
 			System.out.println("Skipping display of GUI, as requested...");
 			
 		} else {
+			
+			System.out.println("Setting system look and feel...");
+			try 
+			{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error setting look and feel.");
+			}
         	
 			System.out.println("Displaying main window...");
         	
