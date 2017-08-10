@@ -47,7 +47,7 @@ public class Main
 	public static void main(String[] args)
 	{
 		System.setProperty("line.separator", "\n");
-		
+				
 		System.out.println("*** Decent Messaging ***");
 		
 		System.out.println("Interpreting command line parameters...");
@@ -56,6 +56,7 @@ public class Main
 				".decentmessaging" + System.getProperty("file.separator");
 		
 		boolean showGUI = true;
+		boolean commandLineInterfaceMode = false;
 		
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
@@ -83,6 +84,10 @@ public class Main
 			} else if (arg.equalsIgnoreCase("--portable")) {
 				storageDirectory = "." + System.getProperty("file.separator") + 
 						".decentmessaging" + System.getProperty("file.separator");
+			} else if (arg.equalsIgnoreCase("--command")) {
+				System.out.println("Command line interface mode.");
+				showGUI = false;
+				commandLineInterfaceMode = true;
 			}
 		}
 		
@@ -95,11 +100,7 @@ public class Main
 		{
 			System.out.println("Error setting look and feel.");
 		}
-		
-		MenuItem removeNodeMenuItem = null;
-		PopupMenu nodePopup = null;
-		MenuItem dmAddressMenuItem = null;
-		
+				
 		if (!showGUI) {
 			
 			System.out.println("Skipping display of GUI, as requested...");
@@ -150,46 +151,11 @@ public class Main
 			System.exit(0);
 		}
 		
-		System.out.println("Checking main public/private keys...");
-		if (PrivateKeyFactory.get(1)==null && PublicKeyFactory.get(1)==null)
-		{
-			System.out.println("Main public/private keys do not exist.");
-			System.out.println("Creating new main public/private key pair...");
-			try 
-			{
-				createMainKeyPair();
-			} 
-			catch (Exception e) 
-			{
-				e.printStackTrace();
-				System.out.println("Error creating new main public/private key pair.");
-				System.exit(0);
-			}
-			System.out.println("Public/private key pair created.");
-		}
-		else if (PrivateKeyFactory.get(1)!=null && PublicKeyFactory.get(1)==null)
-		{
-			System.out.println("Consistency error. Main private key exists without corresponding public key.");
-			System.exit(0);
-		}
-		else if (PrivateKeyFactory.get(1)==null && PublicKeyFactory.get(1)!=null)
-		{
-			System.out.println("Consistency error. Main public key exists without corresponding private key.");
-			System.exit(0);
-		}
-		else
-		{
-			System.out.println("Main public/private key pair found.");
-		}
+		checkAndCreateKeyPair();
 		
-		try 
-		{
-			dmAddress = createDmAddress(PublicKeyFactory.get(1).modulus, PublicKeyFactory.get(1).exponent);
-			System.out.println("Your Decent Messaging address: "+dmAddress);
-		} 
-		catch (UnsupportedEncodingException e) 
-		{
-			e.printStackTrace();
+		if (commandLineInterfaceMode) {
+			CLIHandler.start(args);
+			return;
 		}
 		
 		System.out.println("Starting local server on port "+localServerPort+"...");
@@ -289,6 +255,51 @@ public class Main
 		
 	}
 	
+	private static void checkAndCreateKeyPair() {
+		
+		System.out.println("Checking main public/private keys...");
+		if (PrivateKeyFactory.get(1)==null && PublicKeyFactory.get(1)==null)
+		{
+			System.out.println("Main public/private keys do not exist.");
+			System.out.println("Creating new main public/private key pair...");
+			try 
+			{
+				createMainKeyPair();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+				System.out.println("Error creating new main public/private key pair.");
+				System.exit(0);
+			}
+			System.out.println("Public/private key pair created.");
+		}
+		else if (PrivateKeyFactory.get(1)!=null && PublicKeyFactory.get(1)==null)
+		{
+			System.out.println("Consistency error. Main private key exists without corresponding public key.");
+			System.exit(0);
+		}
+		else if (PrivateKeyFactory.get(1)==null && PublicKeyFactory.get(1)!=null)
+		{
+			System.out.println("Consistency error. Main public key exists without corresponding private key.");
+			System.exit(0);
+		}
+		else
+		{
+			System.out.println("Main public/private key pair found.");
+		}
+		
+		try 
+		{
+			dmAddress = createDmAddress(PublicKeyFactory.get(1).modulus, PublicKeyFactory.get(1).exponent);
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
 	private static void createMainKeyPair() throws NoSuchAlgorithmException, InvalidKeySpecException
 	{
 		KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
