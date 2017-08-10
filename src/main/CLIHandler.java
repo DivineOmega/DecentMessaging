@@ -12,7 +12,7 @@ public abstract class CLIHandler {
 				switch(args[i+1]) {
 					case "get_my_dm_address":
 						getMyDmAddress();
-						break;
+						return;
 				}
 			}
 		}
