@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
