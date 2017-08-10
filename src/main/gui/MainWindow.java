@@ -1,29 +1,25 @@
 package main.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import main.Main;
 import main.factory.NodeFactory;
 import main.network.PeerConnection;
 import main.record.NodeRecord;
 import net.miginfocom.swing.MigLayout;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JTextArea;
-import javax.swing.ListModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.JTextPane;
 
 public class MainWindow {
 

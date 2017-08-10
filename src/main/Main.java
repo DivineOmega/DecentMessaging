@@ -1,16 +1,7 @@
 package main;
 
-import java.awt.AWTException;
-import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.Toolkit;
-import java.awt.TrayIcon;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
@@ -20,7 +11,6 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.URL;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -28,10 +18,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import main.factory.NodeFactory;
 import main.factory.PrivateKeyFactory;
 import main.factory.PublicKeyFactory;
 import main.gui.GUIUpdater;
@@ -41,7 +29,6 @@ import main.network.LocalServer;
 import main.network.MessageRelayer;
 import main.network.NodeRelayer;
 import main.network.PeerServer;
-import main.record.NodeRecord;
 
 import org.apache.commons.codec.binary.Base64;
 
