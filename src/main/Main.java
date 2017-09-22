@@ -54,7 +54,6 @@ public class Main
 				".decentmessaging" + System.getProperty("file.separator");
 		
 		boolean showGUI = true;
-		boolean commandLineInterfaceMode = false;
 		
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
@@ -82,10 +81,6 @@ public class Main
 			} else if (arg.equalsIgnoreCase("--portable")) {
 				storageDirectory = "." + System.getProperty("file.separator") + 
 						".decentmessaging" + System.getProperty("file.separator");
-			} else if (arg.equalsIgnoreCase("--command")) {
-				System.out.println("Command line interface mode.");
-				showGUI = false;
-				commandLineInterfaceMode = true;
 			}
 		}
 						
@@ -150,12 +145,7 @@ public class Main
 		}
 		
 		checkAndCreateKeyPair();
-		
-		if (commandLineInterfaceMode) {
-			CLIHandler.start(args);
-			return;
-		}
-		
+				
 		System.out.println("Starting local server on port "+localServerPort+"...");
 		localServer1 = new LocalServer(localServerPort);
 		localServer1.start();
