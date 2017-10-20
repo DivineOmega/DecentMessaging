@@ -24,6 +24,7 @@ import main.gui.GUIUpdater;
 import main.gui.MainWindow;
 import main.network.Bootstrapper;
 import main.network.LocalServer;
+import main.network.LocalWebServer;
 import main.network.MessageRelayer;
 import main.network.NodeRelayer;
 import main.network.PeerServer;
@@ -33,6 +34,7 @@ import org.apache.commons.codec.binary.Base64;
 public class Main 
 {
 	public static LocalServer localServer1;
+	public static LocalWebServer localWebServer1;
 	public static PeerServer peerServer1;
 	public static String dmAddress = null;
 	public static String storageDirectory = null;
@@ -41,6 +43,7 @@ public class Main
 	
 	public static int peerServerPort = 9991;
 	public static int localServerPort = 8881;
+	public static int localWebServerPort = 7771;
 	
 	public static void main(String[] args)
 	{
@@ -145,11 +148,14 @@ public class Main
 		}
 		
 		checkAndCreateKeyPair();
+		
+		System.out.println("Starting local web server on port "+localWebServerPort+"...");
+		localWebServer1 = new LocalWebServer(localWebServerPort);
 				
 		System.out.println("Starting local server on port "+localServerPort+"...");
 		localServer1 = new LocalServer(localServerPort);
 		localServer1.start();
-		
+				
 		System.out.println("Starting peer server on port "+peerServerPort+"...");
 		peerServer1 = new PeerServer(peerServerPort);
 		peerServer1.start();
