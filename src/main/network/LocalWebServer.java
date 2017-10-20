@@ -21,7 +21,7 @@ public class LocalWebServer extends NanoHTTPD
 {
 	public LocalWebServer(int port)
 	{
-		super(port);
+		super("localhost", port);
 		
 		try {
 			start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
