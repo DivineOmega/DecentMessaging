@@ -23,7 +23,6 @@ import main.factory.PublicKeyFactory;
 import main.gui.GUIUpdater;
 import main.gui.MainWindow;
 import main.network.Bootstrapper;
-import main.network.LocalServer;
 import main.network.LocalWebServer;
 import main.network.MessageRelayer;
 import main.network.NodeRelayer;
@@ -33,7 +32,6 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Main 
 {
-	public static LocalServer localServer1;
 	public static LocalWebServer localWebServer1;
 	public static PeerServer peerServer1;
 	public static String dmAddress = null;
@@ -42,7 +40,6 @@ public class Main
 	public static MainWindow mainWindow = null; 
 	
 	public static int peerServerPort = 9991;
-	public static int localServerPort = 8881;
 	public static int localWebServerPort = 7771;
 	
 	public static void main(String[] args)
@@ -73,7 +70,7 @@ public class Main
 			} else if (arg.equalsIgnoreCase("--local-server-port")) {
 				if (args.length >= i) {
 					try {
-						localServerPort = Integer.parseInt(args[i+1]);
+						localWebServerPort = Integer.parseInt(args[i+1]);
 					} catch (NumberFormatException e) {
 						System.out.println("Invalid local server port number.");
 						System.exit(1);
@@ -152,10 +149,6 @@ public class Main
 		System.out.println("Starting local web server on port "+localWebServerPort+"...");
 		localWebServer1 = new LocalWebServer(localWebServerPort);
 				
-		System.out.println("Starting local server on port "+localServerPort+"...");
-		localServer1 = new LocalServer(localServerPort);
-		localServer1.start();
-				
 		System.out.println("Starting peer server on port "+peerServerPort+"...");
 		peerServer1 = new PeerServer(peerServerPort);
 		peerServer1.start();
@@ -192,7 +185,6 @@ public class Main
 		System.out.println("Thread monitoring starting...");
 		
 		ArrayList<Thread> threadsToMonitor = new ArrayList<Thread>();
-		threadsToMonitor.add(localServer1);
 		threadsToMonitor.add(peerServer1);
 		threadsToMonitor.add(messageRelayer1);
 		threadsToMonitor.add(nodeRelayer1);
@@ -219,8 +211,6 @@ public class Main
 							} else {
 								if (constructor.getDeclaringClass().getName()=="main.network.PeerServer") {
 									thread = (Thread) constructor.newInstance(peerServerPort);
-								} else if (constructor.getDeclaringClass().getName()=="main.network.LocalServer") {
-									thread = (Thread) constructor.newInstance(localServerPort);
 								}
 							}
 						}
