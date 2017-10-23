@@ -17,8 +17,10 @@ import org.json.simple.JSONObject;
 
 import main.Main;
 import main.factory.MessageFactory;
+import main.factory.NodeFactory;
 import main.factory.PersonalFactory;
 import main.record.MessageRecord;
+import main.record.NodeRecord;
 import main.record.PersonalRecord;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -239,6 +241,46 @@ public class LocalWebServer extends NanoHTTPD
 						
 						responseObj.put("status", "ok");
 						responseObj.put("description", "Message queued for delivery.");
+						break;
+						
+						
+					} else {
+						responseObj.put("status", "error");
+						responseObj.put("description", "Missing parameter(s).");
+						break;
+					}
+					
+				} else {
+					responseObj.put("description", "Invalid method. Must use POST method.");
+				}
+				
+				break;
+				
+			case "/api/v1/nodes":
+				
+				if (session.getMethod() == Method.POST) {
+					
+					if (parameters.containsKey("host") && parameters.containsKey("port")) {
+						
+						String host = parameters.get("host").get(0);
+						
+						int port = 0;
+						try
+						{
+							port = Integer.valueOf(parameters.get("port").get(0));
+						}
+						catch(NumberFormatException e)
+						{
+							responseObj.put("status", "error");
+							responseObj.put("description", "Non-numeric port number.");
+							break;
+						}
+						
+						NodeRecord node = NodeFactory.createNew(host, port);
+						node.updateLastSeen();
+												
+						responseObj.put("status", "ok");
+						responseObj.put("description", "New node added.");
 						break;
 						
 						
