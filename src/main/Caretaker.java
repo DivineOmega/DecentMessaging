@@ -12,8 +12,8 @@ public class Caretaker extends Thread
 	public void run()
 	{
 		File messageDirectory = new File(Main.storageDirectory+"message");
-		long freeSpace = 0;
-		long usedSpace = 0;
+		double usedSpace = 0;
+		double allocatedSpace = 0;
 		
 		while(true)
 		{
@@ -26,10 +26,15 @@ public class Caretaker extends Thread
 				e.printStackTrace();
 			}
 			
-			freeSpace = messageDirectory.getFreeSpace();
+			allocatedSpace = messageDirectory.getTotalSpace() * 0.01;
+			
+			while (allocatedSpace > messageDirectory.getUsableSpace()) {
+				allocatedSpace = allocatedSpace * 0.5;
+			}
+			
 			usedSpace = MessageRecord.getUsedSpace();
 			
-			while (usedSpace > (freeSpace*0.1))
+			while (usedSpace > allocatedSpace)
 			{
 				MessageFactory.getMessageToDelete().deleteContentFile();
 				usedSpace = MessageRecord.getUsedSpace();
