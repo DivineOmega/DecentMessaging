@@ -13,9 +13,13 @@ It is worth familiarising yourself with [Decent Messaging terminology](terminolo
  
 The base URL for the API is `http://localhost:7771/api/v1/`.
 
-| Method & Endpoint            | Parameters                 | Description   |
-| -------------------------- | -------------------------- | ------------- |
-| `GET`   `personal-messages`   | (none)                   | Retrieves a list of all personal message IDs |
-| `GET`      `personal-messages`   | since=X                  | Retrieves a list of all personal message IDs received since the UNIX timestamp X |
-| `GET`      `personal-messages`   | id=X                     | Retrieves the personal message with an ID of X |
-| `POST`     `personal-messages`   | delete=X                 | Deletes the personal message with an ID of X |
+### Personal messages
+
+Endpoint: `/api/v1/personal-messages`
+
+| Method   | Parameters               | Description   |
+| -------- | ------------------------ | ------------- |
+| GET      | -                        | Retrieves a list of all personal message IDs |
+| GET      | since=X                  | Retrieves a list of all personal message IDs received since the UNIX timestamp X |
+| GET      | id=X                     | Retrieves the personal message with an ID of X |
+| POST     | delete=X                 | Deletes the personal message with an ID of X |
