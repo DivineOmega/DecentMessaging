@@ -22,7 +22,7 @@ A,rxR0cJJ79NOa+OjhZjKGDUpk+uCBEAEJcnxmu/z7CB/3L+a4/vUAmzD4r8W0QJLM7vjUlymRoD3wLx
 
 # Message
 
-A `message` is a the main form of communication between nodes. A message's payload is an encrypted binary blob. Decrypted, this blob contains details on the sender, subject and main body content of the message.
+A `message` is the main form of communication between nodes. A message's payload is an encrypted binary blob. Decrypted, this blob contains details on the sender, subject and main body content of the message.
 
 Messages are encrypted with the public key of the intended recipient (derived from the DM address). This means only the intended recipient can correctly decrypt and read the message content. A decrypted message is then considered to be a personal message by the recipient node. 
 
