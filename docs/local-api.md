@@ -23,3 +23,19 @@ Endpoint: `/api/v1/personal-messages`
 | GET      | since=X                  | Retrieves a list of all personal message IDs received since the UNIX timestamp X |
 | GET      | id=X                     | Retrieves the personal message with an ID of X |
 | POST     | delete=X                 | Deletes the personal message with an ID of X |
+
+### Messages
+
+Endpoint: `/api/v1/messages`
+
+| Method   | Parameters                            | Description   |
+| -------- | ------------------------------------- | ------------- |
+| POST     | recipientAddress=X, subject=Y, body=Z | Queues a new message to be sent to the DM Address defined by X, with the subject Y and body content Z |
+
+### Nodes
+
+Endpoint: `/api/v1/nodes`
+
+| Method   | Parameters     | Description   |
+| -------- | -------------- | ------------- |
+| POST     | host=X, port=Y | Adds a new node with the host X and port number Y, which will be connected to if necessary |
