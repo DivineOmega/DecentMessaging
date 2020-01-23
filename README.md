@@ -14,10 +14,10 @@ You can customise this behaviour by specifying various command line arguments.
 
 | Argument        | Description |
 | --------------- | ----------------- |
-| --hidden        | Do not show any GUI. Useful for integrating Decent Messaging into your own application. |
-| --portable      | Store Decent Messaging files and database in the same directory as the binary, rather than in the user's home directory. Useful if you wish your application to have its own instance of Decent Messaging, instead of potentially shared its data and DM Address with other applications. |
-| --peer-server-port 9991 | Change the port Decent Messaging listens on for connections from other nodes. |
-| --local-server-port 7771 | Change the port Decent Messaging listens on for local API connections. |
+| `--hidden`        | Do not show any GUI. Useful for integrating Decent Messaging into your own application. |
+| `--portable`      | Store Decent Messaging files and database in the same directory as the binary, rather than in the user's home directory. Useful if you wish your application to have its own instance of Decent Messaging, instead of potentially shared its data and DM Address with other applications. |
+| `--peer-server-port 9991` | Change the port Decent Messaging listens on for connections from other nodes. |
+| `--local-server-port 7771` | Change the port Decent Messaging listens on for local API connections. |
 
 ## Integrating with Decent Messaging
 
