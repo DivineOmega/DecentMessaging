@@ -36,7 +36,7 @@ public class MainWindow {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Decent Messaging");
-		frame.setBounds(100, 100, 450, 450);
+		frame.setBounds(100, 100, 800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
