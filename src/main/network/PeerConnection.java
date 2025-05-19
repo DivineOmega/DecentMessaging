@@ -3,7 +3,7 @@ package main.network;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
+import javax.net.ssl.SSLSocket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
@@ -15,17 +15,17 @@ import main.record.NodeRecord;
 
 public class PeerConnection extends Thread 
 {
-	Socket socket;
+        SSLSocket socket;
 	DataInputStream in;
 	DataOutputStream out;
 	boolean threadDone = false;
 	ArrayList<Object> OutgoingObjects = new ArrayList<Object>();
 	private long stillActiveTimestamp = System.currentTimeMillis();
 	
-	public PeerConnection(Socket socket)
-	{
-		this.socket = socket;
-	}
+        public PeerConnection(SSLSocket socket)
+        {
+                this.socket = socket;
+        }
 	
 	public void done() 
 	{

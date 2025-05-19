@@ -2,8 +2,11 @@ package main.network;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
+
+import main.network.SSLContextFactory;
 import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -29,12 +32,13 @@ public class PeerServer extends Thread
 	
 	public void run()
 	{
-		ServerSocket serverSocket = null;
-		try 
-		{
-			serverSocket = new ServerSocket(port, 0);
-		} 
-		catch (IOException e) 
+                SSLServerSocket serverSocket = null;
+                try
+                {
+                        SSLServerSocketFactory factory = SSLContextFactory.newServerSocketFactory();
+                        serverSocket = (SSLServerSocket) factory.createServerSocket(port, 0);
+                }
+                catch (Exception e)
 		{
 			e.printStackTrace();
 			System.out.println("Error starting peer server.");
@@ -51,9 +55,9 @@ public class PeerServer extends Thread
 			System.out.println("Error mapping port on uPnP device to peer server.");
 		}
 		
-		Socket socket;
-		while (true)
-		{
+                SSLSocket socket;
+                while (true)
+                {
 			if (Main.peerServer1.connections.size()>=incomingLimit)
 			{
 				try 
@@ -69,8 +73,9 @@ public class PeerServer extends Thread
 			
 			try 
 			{
-				socket = serverSocket.accept();
-				PeerConnection incomingConnection = new PeerConnection(socket);
+                                socket = (SSLSocket) serverSocket.accept();
+                                socket.startHandshake();
+                                PeerConnection incomingConnection = new PeerConnection(socket);
 				connections.add(incomingConnection);
 				incomingConnection.start();
 				
