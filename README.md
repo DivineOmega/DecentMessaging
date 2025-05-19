@@ -7,6 +7,10 @@ Decent Messaging - a decentralised encrypted messaging system platform
 2. Download the latest version of `DecentMessaging.jar` from the [releases page](https://github.com/DivineOmega/DecentMessaging/releases).
 3. Double-click the downloaded file, or run it via the command line using `java -jar DecentMessaging.jar`.
 
+All peer-to-peer communication uses TLS with a transient self-signed
+certificate. A new certificate and random password are generated on each
+launch so no manual certificate management is required.
+
 ## Command Line Argumments
 
 By default, Decent Messaging will start using default ports, with a GUI to monitor and manage your Decent Messaging node.

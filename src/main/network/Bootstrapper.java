@@ -3,7 +3,10 @@ package main.network;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.Socket;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
+import main.network.SSLContextFactory;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -109,20 +112,22 @@ public class Bootstrapper extends Thread
 			if (connections.size()>=bootstrapLimit) continue;
 			if (isNodeAlreadyConnected(node, connections)) continue;
 			
-			try
-        	{
-        		SocketAddress sockAddr = new InetSocketAddress(node.host, node.port);
-        		Socket newSocket = new Socket();
-        		newSocket.connect(sockAddr, 2500);
-				PeerConnection newPeerConnection = new PeerConnection(newSocket);
-				Main.peerServer1.connections.add(newPeerConnection);
-				newPeerConnection.start();
-				//System.out.println("Bootstrap to "+node.host+":"+node.port+" succeeded.");
-			}
-        	catch (IOException e1) 
-			{
-        		//System.out.println("Bootstrap to "+node.host+":"+node.port+" failed.");
-			}
+                        try
+                {
+                        SocketAddress sockAddr = new InetSocketAddress(node.host, node.port);
+                        SSLSocketFactory factory = SSLContextFactory.newSocketFactory();
+                        SSLSocket newSocket = (SSLSocket) factory.createSocket();
+                        newSocket.connect(sockAddr, 2500);
+                        newSocket.startHandshake();
+                                PeerConnection newPeerConnection = new PeerConnection(newSocket);
+                                Main.peerServer1.connections.add(newPeerConnection);
+                                newPeerConnection.start();
+                                //System.out.println("Bootstrap to "+node.host+":"+node.port+" succeeded.");
+                        }
+                catch (Exception e1)
+                        {
+                        //System.out.println("Bootstrap to "+node.host+":"+node.port+" failed.");
+                        }
 		}
 	}
 	
