@@ -13,7 +13,7 @@ It is worth familiarising yourself with [Decent Messaging terminology](terminolo
  
 The base URL for the API is `http://localhost:7771/api/v1/`.
 
-Response will be a JSON object, with a `status` (`ok` or `error`) and a free form text `descripption`.
+Response will be a JSON object, with a `status` (`ok` or `error`) and a free form text `description`.
 
 ### Personal messages
 
