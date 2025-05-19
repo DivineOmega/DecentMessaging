@@ -171,9 +171,10 @@ public class LocalWebServer extends NanoHTTPD
 				} else {
 					responseObj.put("status", "error");
 					responseObj.put("description", "Invalid method. Must use GET or POST method.");
-				}
-				
-			case "/api/v1/messages":
+                                }
+                                break;
+
+                        case "/api/v1/messages":
 				
 				if (session.getMethod() == Method.POST) {
 					
