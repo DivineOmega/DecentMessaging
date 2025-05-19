@@ -3,11 +3,11 @@ Decent Messaging - a decentralised encrypted messaging system platform
 
 ## Quick Start
 
-1. Ensure you have a recent veresion of Java installed.
+1. Ensure you have a recent version of Java installed.
 2. Download the latest version of `DecentMessaging.jar` from the [releases page](https://github.com/DivineOmega/DecentMessaging/releases).
 3. Double-click the downloaded file, or run it via the command line using `java -jar DecentMessaging.jar`.
 
-## Command Line Argumments
+## Command Line Arguments
 
 By default, Decent Messaging will start using default ports, with a GUI to monitor and manage your Decent Messaging node.
 You can customise this behaviour by specifying various command line arguments.
